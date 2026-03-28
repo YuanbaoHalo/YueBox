@@ -1,0 +1,588 @@
+/* =====================
+   越音集页面
+   ===================== */
+.collection-page {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: inherit;
+}
+
+/* ─── 顶部导航 ─── */
+.collection-header {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  padding: 16px 20px 12px;
+  gap: 0;
+}
+.collection-back {
+  background: none;
+  border: none;
+  color: var(--teal);
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.collection-back:hover { background: var(--border-light); }
+
+.collection-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.6em;
+  color: var(--ink);
+  font-weight: normal;
+  margin: 0;
+}
+
+.collection-header-spacer {
+  width: 52px;
+  flex-shrink: 0;
+}
+
+/* ─── Tab 切换栏 ─── */
+.collection-tabs {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  border-bottom: 1px solid var(--border);
+}
+
+.collection-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.25em;
+  color: var(--ink-muted);
+  padding: 10px 0 9px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+.collection-tab:hover { color: var(--ink); }
+.collection-tab--active { color: var(--teal); }
+.collection-tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 20%;
+  width: 60%;
+  height: 2px;
+  background: var(--teal);
+  border-radius: 2px;
+}
+
+/* ─── 内容区 ─── */
+.collection-main {
+  width: 100%;
+  max-width: 480px;
+  padding: 16px 16px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── 唱段卡片 ─── */
+.tc-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: border-color 0.25s;
+}
+.tc-card--complete { border-color: var(--teal); }
+.tc-card--current  { border-color: var(--amber); }
+
+/* 顶部：标题 + 进度 */
+.tc-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.tc-title {
+  font-size: 1rem;
+  color: var(--ink);
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.tc-card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.tc-status {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  border-radius: 20px;
+  padding: 1px 8px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.tc-status--complete { color: var(--teal); border-color: var(--teal); }
+.tc-progress {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+.tc-progress--complete { color: var(--teal); font-weight: 600; }
+
+/* 名家副标题 */
+.tc-performer-line {
+  margin: 3px 0 13px;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.18em;
+}
+
+/* ─── 唱词列表（逐句点亮）─── */
+.tc-fragments {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tc-fragment {
+  font-size: 0.95rem;
+  padding: 7px 14px;
+  border-radius: 8px;
+  line-height: 1.6;
+  letter-spacing: 0.18em;
+  transition: opacity 0.3s, color 0.3s, background 0.3s;
+}
+
+/* 未解锁 */
+.tc-fragment--locked {
+  color: var(--ink-muted);
+  background: transparent;
+  border: 1px dashed var(--border);
+  opacity: 0.4;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+}
+
+/* 已解锁 */
+.tc-fragment--unlocked {
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  opacity: 1;
+}
+
+/* 新解锁：点亮动画 */
+@keyframes lyric-glow {
+  0%   { background: var(--teal-light, #e0f5f0); color: var(--teal); border-color: var(--teal); opacity: 0.7; }
+  60%  { background: var(--teal-light, #e0f5f0); color: var(--teal); border-color: var(--teal); opacity: 1; }
+  100% { background: var(--bg); color: var(--ink); border-color: var(--border); opacity: 1; }
+}
+.tc-fragment--new {
+  animation: lyric-glow 1.2s ease forwards;
+  border: 1px solid var(--teal);
+}
+
+/* ─── 底部操作行 ─── */
+.tc-action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 2px;
+}
+
+.tc-play-btn {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 18px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tc-play-btn:hover          { background: var(--teal-light); }
+.tc-play-btn--playing        { background: var(--vermilion); }
+.tc-play-btn--playing:hover  { background: var(--vermilion-light, #c0392b); }
+
+.tc-unlock-btn {
+  background: none;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  padding: 4px 14px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.tc-unlock-btn:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* ─── 徽章面板 ─── */
+.badges-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 4px;
+}
+.badges-summary {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin: 0;
+}
+.badges-summary-num {
+  color: var(--teal);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+.badges-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.badge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.badge-card--earned { border-color: var(--amber); }
+.badge-card--locked { opacity: 0.45; }
+.badge-card-icon { font-size: 1.8rem; line-height: 1; flex-shrink: 0; }
+.badge-card-name { font-size: 1rem; color: var(--ink); letter-spacing: 0.2em; flex: 1; }
+.badge-card-req  { font-size: 0.72rem; color: var(--ink-muted); letter-spacing: 0.1em; }
+.badge-card-locked-label {
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  border: 1px dashed var(--border);
+  border-radius: 20px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+
+
+/* === 徽章面板升级版 === */
+
+/* 墨迹淡入动效 */
+.ink-hidden {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+}
+.ink-show {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+  transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s ease;
+}
+
+/* 徽章点亮提示 */
+.badge-toast {
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 12px 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.badge-toast-name {
+  font-size: 1rem;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  font-weight: 500;
+}
+.badge-toast-desc {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.2em;
+}
+
+/* 总进度 */
+.badges-summary {
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin: 0 0 12px;
+}
+.badges-summary-num {
+  font-size: 1.1rem;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* 徽章列表 */
+.badges-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 徽章卡片基础 */
+.badge-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.badge-card--earned {
+  border-color: var(--teal);
+}
+.badge-card--current {
+  border-color: var(--amber);
+  background: var(--bg);
+}
+.badge-card--locked {
+  opacity: 0.38;
+}
+
+/* 卡片顶部行 */
+.badge-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge-card-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.badge-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.badge-card-name {
+  font-size: 0.95rem;
+  color: var(--ink);
+  letter-spacing: 0.2em;
+}
+.badge-card-desc {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+}
+.badge-card-right {
+  flex-shrink: 0;
+  text-align: right;
+}
+.badge-card-check {
+  font-size: 1.1rem;
+  color: var(--teal);
+  font-weight: 600;
+}
+.badge-card-count {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+/* 进度条 */
+.badge-bar-track {
+  height: 5px;
+  background: var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.badge-bar-fill {
+  height: 100%;
+  background: var(--amber);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  min-width: 0;
+}
+.badge-bar-fill--earned {
+  background: var(--teal);
+}
+
+
+/* === 徽章面板视觉精修：字体增大 + 居中 + 间距加大 === */
+
+.badges-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 8px;
+}
+
+.badges-summary {
+  font-size: 1rem !important;
+  letter-spacing: 0.2em !important;
+  margin: 0 !important;
+}
+.badges-summary-num {
+  font-size: 1.25rem !important;
+}
+
+.badges-grid {
+  gap: 16px !important;
+}
+
+.badge-card {
+  padding: 18px 16px 14px !important;
+  gap: 12px !important;
+  border-radius: 14px !important;
+}
+
+.badge-card-top {
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  text-align: center !important;
+}
+
+.badge-card-icon {
+  font-size: 2rem !important;
+}
+
+.badge-card-meta {
+  align-items: center !important;
+  gap: 5px !important;
+}
+
+.badge-card-name {
+  font-size: 1.1rem !important;
+  letter-spacing: 0.25em !important;
+}
+
+.badge-card-desc {
+  font-size: 0.82rem !important;
+  letter-spacing: 0.18em !important;
+  opacity: 0.75 !important;
+}
+
+.badge-card-right {
+  text-align: center !important;
+}
+
+.badge-card-check {
+  font-size: 1.3rem !important;
+}
+
+.badge-card-count {
+  font-size: 0.9rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.1em !important;
+}
+
+.badge-bar-track {
+  height: 6px !important;
+  border-radius: 4px !important;
+}
+
+.badge-bar-fill {
+  height: 6px !important;
+  border-radius: 4px !important;
+}
+
+.badge-toast {
+  padding: 14px 20px !important;
+  gap: 6px !important;
+}
+.badge-toast-name {
+  font-size: 1.05rem !important;
+  letter-spacing: 0.28em !important;
+}
+.badge-toast-desc {
+  font-size: 0.88rem !important;
+  letter-spacing: 0.22em !important;
+}
+
+
+/* === 徽章卡片精修：减少留白 + 字体可读性 === */
+.badge-card {
+  padding: 12px 14px 10px !important;
+  gap: 8px !important;
+}
+
+.badge-card-top {
+  gap: 5px !important;
+}
+
+.badge-card-icon {
+  font-size: 1.6rem !important;
+}
+
+.badge-card-name {
+  font-size: 1.05rem !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.2em !important;
+  font-weight: 500 !important;
+}
+
+.badge-card-desc {
+  font-size: 0.8rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.15em !important;
+  opacity: 1 !important;
+}
+
+.badge-card-count {
+  font-size: 0.88rem !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.08em !important;
+}
+
+.badges-grid {
+  gap: 10px !important;
+}
+
+.badges-panel {
+  gap: 14px !important;
+}
+
+
+/* === 徽章卡片精修：减少留白 + 字体可读性 === */
+.badge-card { padding: 12px 14px 10px !important; gap: 8px !important; }
+.badge-card-top { gap: 5px !important; }
+.badge-card-icon { font-size: 1.6rem !important; }
+.badge-card-name { font-size: 1.05rem !important; color: var(--ink) !important; letter-spacing: 0.2em !important; font-weight: 500 !important; }
+.badge-card-desc { font-size: 0.8rem !important; color: var(--ink-muted) !important; letter-spacing: 0.15em !important; opacity: 1 !important; }
+.badge-card-count { font-size: 0.88rem !important; color: var(--ink) !important; letter-spacing: 0.08em !important; }
+.badges-grid { gap: 10px !important; }
+.badges-panel { gap: 14px !important; }

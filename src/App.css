@@ -1,0 +1,2621 @@
+/* =====================
+   国风配色变量
+   月白底 / 柔青绿 / 暖红 / 墨
+   ===================== */
+:root {
+  --bg:              #f2ece0;   /* 月白暖底 */
+  --surface:         #faf7f2;   /* 暖白卡片，不刺眼 */
+  --border:          #ddd5c0;   /* 柔和米色边框 */
+  --border-light:    #ece6d8;   /* 更浅边框 */
+  --ink:             #2e2318;   /* 墨色主文字 */
+  --ink-muted:       #8a7d6e;   /* 次要文字 */
+  --vermilion:       #b5473a;   /* 柔和暖红 */
+  --vermilion-light: #cc6055;
+  --vermilion-dark:  #7a2820;   /* 按钮阴影 */
+  --teal:            #2e7d6e;   /* 青绿主色 */
+  --teal-light:      #4a9e8e;
+  --teal-dark:       #1e5a4e;   /* 按钮阴影 */
+  --amber:           #a85c1a;   /* 赭黄 */
+  --amber-light:     #c87830;
+  --ink-line:        #bdb0a0;   /* 棋盘框，柔和深色 */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  /* 柔和渐变：左上偏青暖白 → 右下偏暖米色 */
+  background:
+    /* 极淡点阵纹理，模拟宣纸质感，透明度 3% */
+    radial-gradient(circle, rgba(100, 80, 40, 0.03) 1px, transparent 1px),
+    /* 主渐变：轻微青暖双色 */
+    linear-gradient(135deg, #edf3ee 0%, #f2ece0 60%, #f0e8d8 100%);
+  background-size: 18px 18px, 100% 100%;
+  color: var(--ink);
+  font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+  min-height: 100vh;
+}
+
+/* =====================
+   整体容器：减小页边距
+   ===================== */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 12px 4px 20px;
+  gap: 12px;
+}
+
+/* =====================
+   标题区
+   ===================== */
+.app-header { text-align: center; }
+
+.title {
+  font-size: 2rem;
+  letter-spacing: 0.5em;
+  color: var(--vermilion);
+  font-weight: normal;
+}
+
+.subtitle {
+  margin-top: 3px;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.22em;
+}
+
+/* =====================
+   三列主体：左信息 | 中棋盘 | 右工具
+   ===================== */
+.app-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+
+/* =====================
+   左侧信息栏：略窄
+   ===================== */
+.info-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.score-box,
+.next-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 16px;
+  text-align: center;
+  min-height: 64px;
+}
+
+.score-label {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+  margin-bottom: 3px;
+}
+
+.score-value {
+  font-size: 1.7rem;
+  color: var(--teal);
+  font-family: 'Courier New', monospace;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.score-value.best {
+  color: var(--amber);
+}
+
+/* 下一块预览 */
+.preview-grid {
+  display: inline-flex;
+  flex-direction: column;
+  margin-top: 5px;
+}
+.preview-row { display: flex; }
+.preview-cell {
+  width: 18px;
+  height: 18px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+.preview-cell-empty {
+  background: #ede8df;
+  border-color: #d4c9b0;
+}
+
+/* =====================
+   右侧：棋盘 + 触控区
+   ===================== */
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* 棋盘外框 */
+.board-wrapper {
+  position: relative;
+  border: 1.5px solid var(--ink-line);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.08);
+}
+
+/* =====================
+   遮罩
+   ===================== */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 240, 232, 0.93);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.overlay-title {
+  font-size: 1.8rem;
+  letter-spacing: 0.4em;
+  color: var(--vermilion);
+  font-weight: normal;
+}
+
+.overlay-sub {
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  color: var(--ink-muted);
+}
+
+.overlay-score {
+  font-size: 1.1rem;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+}
+
+.overlay-best {
+  font-size: 0.9rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+}
+
+/* =====================
+   触屏方向控制区
+   ===================== */
+.dpad {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 0 0;
+  width: 100%;
+}
+
+.dpad-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+/* 旋转按钮：独占居中，宽且高，拇指容易触达 */
+.dpad-btn--rotate {
+  width: 160px;
+  height: 60px;
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1.15rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--teal-dark);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.1s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.1s ease, filter 0.1s ease;
+}
+.dpad-btn--rotate:active {
+  box-shadow: none;
+  transform: translateY(4px) scale(0.96);
+  filter: brightness(0.88);
+}
+
+/* 方向按钮（左/加速/右）：三等分，高大 */
+.dpad-btn--dir {
+  flex: 1;
+  height: 64px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 3px 0 var(--border);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.1s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.1s ease, background 0.08s ease;
+}
+.dpad-btn--dir:active {
+  box-shadow: none;
+  transform: translateY(3px) scale(0.96);
+  background: var(--border);
+}
+
+/* 加速按钮：略深色区分 */
+.dpad-btn--down {
+  background: #ede6d8;
+}
+
+/* 直落按钮：全宽，高度适中 */
+.dpad-btn--drop {
+  width: 100%;
+  height: 56px;
+  background: var(--vermilion);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--vermilion-dark);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.1s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.1s ease, filter 0.1s ease;
+}
+.dpad-btn--drop:active {
+  box-shadow: none;
+  transform: translateY(4px) scale(0.96);
+  filter: brightness(0.88);
+}
+
+/* =====================
+   右侧工具栏：垂直排列，与左侧对称
+   ===================== */
+.tool-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 88px;
+  flex-shrink: 0;
+}
+
+.tool-btn {
+  width: 100%;
+  height: 52px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.92rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+  touch-action: manipulation;
+  transition: background 0.1s, transform 0.1s cubic-bezier(0.34,1.56,0.64,1), filter 0.1s ease;
+}
+.tool-btn:active {
+  background: var(--border-light);
+  transform: scale(0.94);
+  filter: brightness(0.92);
+}
+.tool-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.tool-btn--active {
+  background: var(--amber-light);
+  color: #fff;
+  border-color: var(--amber);
+}
+.tool-btn--restart {
+  background: var(--vermilion);
+  color: #fff;
+  border-color: var(--vermilion);
+}
+.tool-btn--restart:active {
+  background: var(--vermilion-light);
+}
+
+/* 调速按钮三档颜色 */
+.tool-btn--speed-slow  { color: var(--teal);      border-color: var(--teal); }
+.tool-btn--speed-normal{ color: var(--ink-muted); border-color: var(--border); }
+.tool-btn--speed-fast  { color: var(--vermilion); border-color: var(--vermilion); }
+
+/* =====================
+   模式切换栏
+   ===================== */
+.mode-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-btn {
+  padding: 6px 18px;
+  height: 36px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mode-btn--active {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.mode-btn:not(.mode-btn--active):hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* =====================
+   戏韵进度区
+   ===================== */
+.opera-progress-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.opera-progress-value {
+  font-size: 1.1rem;
+  color: var(--teal);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 6px;
+}
+
+.opera-bar-track {
+  height: 8px;
+  background: var(--border-light);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 2px;
+}
+
+.opera-bar-fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 4px;
+  transition: width 0.35s ease;
+  min-width: 4px;
+}
+
+/* 本局戏韵获得数 */
+.score-value.opera-gain {
+  color: var(--vermilion);
+  font-size: 1.5rem;
+}
+
+/* Game Over 遮罩中的戏韵累计行 */
+.overlay-opera-total {
+  font-size: 0.95rem;
+  color: var(--teal);
+  letter-spacing: 0.15em;
+}
+
+.ctrl-btn {
+  padding: 12px 28px;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1.5px solid;
+  transition: background 0.15s, transform 0.08s;
+}
+.ctrl-btn:active {
+  transform: scale(0.96);
+}
+
+.ctrl-btn--primary {
+  background: var(--vermilion);
+  color: #fff;
+  border-color: var(--vermilion);
+}
+.ctrl-btn--primary:hover {
+  background: var(--vermilion-light);
+}
+
+/* =====================
+   响应式：小屏适配
+   ===================== */
+@media (max-width: 480px) {
+  .app {
+    padding: 8px 2px 16px;
+    gap: 8px;
+  }
+  .title { font-size: 1.5rem; letter-spacing: 0.3em; }
+  .subtitle { font-size: 0.75rem; }
+  .app-main { gap: 4px; }
+  .info-panel, .tool-panel { width: 120px; }
+  .score-value { font-size: 1.3rem; }
+  .tool-btn { height: 44px; font-size: 0.8rem; }
+  .dpad-btn--rotate { width: 130px; height: 52px; font-size: 1rem; }
+  .dpad-btn--dir { height: 54px; }
+  .dpad-btn--drop { height: 48px; font-size: 0.95rem; }
+  .mode-btn { padding: 4px 12px; font-size: 0.8rem; height: 32px; }
+}
+
+@media (max-height: 700px) {
+  .app { padding: 6px 4px 8px; gap: 6px; }
+  .dpad { padding-top: 6px; gap: 5px; }
+  .dpad-btn--dir { height: 50px; }
+  .dpad-btn--rotate { height: 50px; }
+  .dpad-btn--drop { height: 44px; }
+}
+
+/* =====================
+   通关结果页
+   ===================== */
+.stage-clear-overlay {
+  background: rgba(240, 236, 224, 0.97);
+  gap: 16px;
+}
+.stage-clear-title {
+  font-size: 1.6rem;
+  letter-spacing: 0.5em;
+  color: var(--teal);
+  font-weight: normal;
+}
+.stage-clear-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.badge-icon { font-size: 2.8rem; line-height: 1; }
+.badge-name {
+  font-size: 0.82rem;
+  color: var(--amber);
+  letter-spacing: 0.2em;
+  border: 1px solid var(--amber);
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.stage-clear-lyric {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  max-width: 90%;
+  text-align: center;
+}
+.lyric-text {
+  font-size: 0.88rem;
+  color: var(--ink);
+  letter-spacing: 0.15em;
+  line-height: 1.8;
+  font-style: italic;
+}
+.stage-clear-btns { display: flex; gap: 10px; }
+.ctrl-btn--secondary {
+  background: var(--surface);
+  color: var(--ink-muted);
+  border-color: var(--border);
+}
+.ctrl-btn--secondary:hover { background: var(--border-light); }
+
+/* =====================
+   通关结果页 - 片段展示
+   ===================== */
+.stage-clear-fragment {
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 16px 18px;
+  max-width: 92%;
+  text-align: center;
+}
+
+.fragment-text {
+  font-size: 1.35rem;
+  color: var(--ink);
+  letter-spacing: 0.25em;
+  line-height: 2;
+  font-weight: normal;
+}
+
+.stage-clear-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.fragment-opera-title {
+  font-size: 0.92rem;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+}
+
+.fragment-performer {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.15em;
+}
+
+.fragment-progress {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+/* =====================
+   通关结果页字体覆盖（调大）
+   ===================== */
+.fragment-text {
+  font-size: 1.7rem !important;
+  letter-spacing: 0.3em !important;
+  line-height: 2.2 !important;
+}
+
+.fragment-opera-title {
+  font-size: 1.15rem !important;
+  letter-spacing: 0.25em !important;
+}
+
+.fragment-performer {
+  font-size: 1rem !important;
+  letter-spacing: 0.2em !important;
+}
+
+.fragment-progress {
+  font-size: 0.95rem !important;
+  opacity: 0.85 !important;
+}
+
+/* =====================
+   通关结果页布局重排（内容上移，按钮底部）
+   ===================== */
+.stage-clear-overlay {
+  background: rgba(240, 236, 224, 0.97) !important;
+  justify-content: flex-start !important;
+  padding-top: 18px !important;
+  padding-bottom: 16px !important;
+  gap: 12px !important;
+}
+
+.stage-clear-title {
+  font-size: 1.5rem !important;
+  letter-spacing: 0.55em !important;
+  margin-bottom: 2px !important;
+}
+
+.stage-clear-fragment {
+  padding: 14px 16px !important;
+  margin-bottom: 2px !important;
+}
+
+.fragment-text {
+  font-size: 1.75rem !important;
+  letter-spacing: 0.3em !important;
+  line-height: 2 !important;
+}
+
+.stage-clear-meta {
+  gap: 6px !important;
+}
+
+.fragment-opera-title {
+  font-size: 1.2rem !important;
+  letter-spacing: 0.25em !important;
+  color: var(--teal) !important;
+}
+
+.fragment-performer {
+  font-size: 1.05rem !important;
+  letter-spacing: 0.2em !important;
+  color: var(--ink) !important;
+  opacity: 0.75;
+}
+
+.fragment-progress {
+  font-size: 1rem !important;
+  letter-spacing: 0.15em !important;
+  opacity: 0.6 !important;
+}
+
+.stage-clear-btns {
+  margin-top: auto !important;
+  padding-top: 8px !important;
+}
+
+/* =====================
+   通关结果页 最终版（居中紧凑，字体搭配优化）
+   ===================== */
+.stage-clear-overlay {
+  background: rgba(242, 238, 228, 0.97) !important;
+  justify-content: center !important;
+  padding: 0 20px !important;
+  gap: 10px !important;
+}
+
+/* 顶部标题：小而精，上方留白少 */
+.stage-clear-title {
+  font-size: 0.82rem !important;
+  letter-spacing: 0.55em !important;
+  color: var(--teal) !important;
+  opacity: 0.75 !important;
+  margin-bottom: 0 !important;
+  text-transform: uppercase;
+}
+
+/* 唱词卡片：主体 */
+.stage-clear-fragment {
+  background: transparent !important;
+  border: none !important;
+  border-top: 1px solid var(--teal) !important;
+  border-bottom: 1px solid var(--teal) !important;
+  border-radius: 0 !important;
+  padding: 14px 8px !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/* 唱词主字：最大最重要 */
+.fragment-text {
+  font-size: 1.6rem !important;
+  letter-spacing: 0.4em !important;
+  line-height: 1.9 !important;
+  color: var(--ink) !important;
+  font-weight: normal !important;
+}
+
+/* 唱段标题 + 名家：紧凑排列 */
+.stage-clear-meta {
+  gap: 3px !important;
+  margin-top: 0 !important;
+}
+
+.fragment-opera-title {
+  font-size: 0.95rem !important;
+  letter-spacing: 0.2em !important;
+  color: var(--ink) !important;
+  opacity: 0.85 !important;
+  font-style: italic !important;
+}
+
+.fragment-performer {
+  font-size: 0.82rem !important;
+  letter-spacing: 0.25em !important;
+  color: var(--teal) !important;
+  opacity: 1 !important;
+}
+
+/* 进度：最小，淡色 */
+.fragment-progress {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.2em !important;
+  color: var(--ink-muted) !important;
+  opacity: 0.55 !important;
+  margin-top: 0 !important;
+}
+
+/* 按钮组：不 push 到底，跟随内容 */
+.stage-clear-btns {
+  margin-top: 6px !important;
+  gap: 12px !important;
+}
+
+/* =====================
+   通关结果页微调（上移 + 字体增大）
+   ===================== */
+.stage-clear-overlay {
+  justify-content: center !important;
+  padding: 0 20px 24px !important;
+  gap: 10px !important;
+}
+
+/* 整体内容区上移 */
+.stage-clear-overlay > * {
+  margin-top: -8px;
+}
+
+/* 本折完成：放大，用朱红激励色 */
+.stage-clear-title {
+  font-size: 1.4rem !important;
+  letter-spacing: 0.5em !important;
+  color: var(--vermilion) !important;
+  opacity: 1 !important;
+  font-weight: normal !important;
+  margin-bottom: 2px !important;
+}
+
+/* 唱段标题增大 */
+.fragment-opera-title {
+  font-size: 1.1rem !important;
+  letter-spacing: 0.2em !important;
+  opacity: 0.9 !important;
+}
+
+/* 名家增大 */
+.fragment-performer {
+  font-size: 0.98rem !important;
+  letter-spacing: 0.25em !important;
+}
+
+/* 进度增大 */
+.fragment-progress {
+  font-size: 0.88rem !important;
+  opacity: 0.65 !important;
+}
+
+/* 收藏入口按钮 */
+.tool-btn--collection {
+  background: var(--surface);
+  color: var(--teal);
+  border-color: var(--teal);
+  opacity: 0.85;
+}
+.tool-btn--collection:hover {
+  background: var(--border-light);
+  opacity: 1;
+}
+
+/* 唱段片段进度（游戏界面左侧）*/
+.track-progress-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+.track-progress-title {
+  font-size: 0.72rem;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  line-height: 1.4;
+  margin: 2px 0;
+}
+.track-progress-count {
+  font-size: 1rem;
+  color: var(--ink);
+  letter-spacing: 0.1em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 完整唱段已解锁标签（结果页）*/
+.fragment-complete-tag {
+  color: var(--teal);
+  font-size: 0.85em;
+  letter-spacing: 0.15em;
+}
+
+/* ─── 播放控制 ─── */
+.tc-complete-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tc-play-btn {
+  background: var(--teal);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 3px 14px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.tc-play-btn:hover { background: var(--teal-light); }
+.tc-play-btn--playing {
+  background: var(--vermilion);
+}
+.tc-play-btn--playing:hover { background: var(--vermilion-light); }
+
+.tc-audio-placeholder {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+/* 唱段进度 - 游戏界面左侧 */
+.track-progress-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.track-progress-title {
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  margin-bottom: 2px;
+  word-break: break-all;
+}
+
+.track-progress-count {
+  font-size: 1rem;
+  color: var(--ink);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+}
+
+/* 完整解锁标签 - 结果页 */
+.fragment-complete-tag {
+  color: var(--teal);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  margin-left: 4px;
+}
+
+/* 唱段收集框 - 游戏面板顶部加大版 */
+.track-progress-box {
+  background: var(--surface) !important;
+  border: 1px solid var(--teal) !important;
+  border-radius: 10px !important;
+  padding: 10px 8px !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.track-progress-box .score-label {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.25em !important;
+  color: var(--teal) !important;
+  margin-bottom: 4px !important;
+}
+
+.track-progress-title {
+  font-size: 0.88rem !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.5 !important;
+  word-break: keep-all !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  margin-bottom: 4px !important;
+}
+
+.track-progress-count {
+  font-size: 1.05rem !important;
+  color: var(--ink) !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: 0.1em !important;
+}
+
+/* ─── 游戏界面唱段进度框优化 ─── */
+.track-progress-performer {
+  font-size: 0.68rem;
+  color: var(--teal);
+  letter-spacing: 0.35em;
+  margin-bottom: 1px;
+}
+.track-progress-num {
+  font-size: 1.3rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+.track-progress-sep {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  margin: 0 2px;
+}
+.track-progress-total {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── 通关结果页：完整解锁横幅 ─── */
+.fragment-complete-banner {
+  background: var(--teal);
+  border-radius: 8px;
+  padding: 6px 20px;
+  margin: 2px 0 4px;
+}
+.fragment-complete-banner-text {
+  font-size: 0.88rem;
+  color: #fff;
+  letter-spacing: 0.3em;
+}
+.fragment-progress-num {
+  font-size: 0.88rem;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+.fragment-progress-label {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.1em;
+}
+
+/* 测试版快速通关标签 */
+.stage-clear-test-tag {
+  font-size: 0.68rem;
+  color: var(--vermilion);
+  letter-spacing: 0.15em;
+  border: 1px solid var(--vermilion);
+  border-radius: 20px;
+  padding: 1px 10px;
+  opacity: 0.8;
+}
+
+
+/* === 游戏界面左上卡片：最终优化版 === */
+.track-progress-box {
+  background: var(--surface) !important;
+  border: 1px solid var(--teal) !important;
+  border-radius: 12px !important;
+  padding: 12px 8px 10px !important;
+  text-align: center !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
+}
+.track-progress-title {
+  font-size: 0.76rem !important;
+  color: var(--ink) !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.5 !important;
+  word-break: break-all !important;
+  white-space: normal !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+.track-progress-performer {
+  font-size: 0.66rem !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.18em !important;
+  opacity: 0.85 !important;
+  margin: 0 !important;
+}
+.track-progress-count {
+  margin-top: 3px !important;
+  letter-spacing: 0.05em !important;
+}
+.track-progress-num {
+  font-size: 1.05rem !important;
+  color: var(--teal) !important;
+  font-variant-numeric: tabular-nums !important;
+  letter-spacing: 0.05em !important;
+}
+.track-progress-sep {
+  font-size: 0.78rem !important;
+  color: var(--ink-muted) !important;
+  margin: 0 2px !important;
+}
+.track-progress-total {
+  font-size: 0.85rem !important;
+  color: var(--ink-muted) !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+
+/* === 戏曲模式：当前唱段横幅（标题+名家左，进度右）=== */
+.opera-track-banner {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 10px 16px;
+  gap: 12px;
+}
+
+.opera-track-banner-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.opera-track-banner-title {
+  font-size: 1rem;
+  color: var(--ink);
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.opera-track-banner-performer {
+  font-size: 0.78rem;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+}
+
+.opera-track-banner-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.opera-track-banner-num {
+  font-size: 1.6rem;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.opera-track-banner-sep {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  margin: 0 3px;
+}
+
+.opera-track-banner-total {
+  font-size: 1.1rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+}
+
+
+/* === 左侧：唱段标题+名家 === */
+.side-track-info {
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.side-track-title {
+  font-size: 0.78rem;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+  font-weight: 500;
+  word-break: break-all;
+  white-space: normal;
+  margin: 0;
+}
+.side-track-performer {
+  font-size: 0.68rem;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* === 右侧：解锁进度 === */
+.side-progress-box {
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.side-progress-label {
+  font-size: 0.68rem;
+  color: var(--teal);
+  letter-spacing: 0.25em;
+  opacity: 0.8;
+  margin: 0;
+}
+.side-progress-count {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px;
+  margin: 0;
+}
+.side-progress-num {
+  font-size: 1.5rem;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+.side-progress-sep {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  margin: 0 2px;
+}
+.side-progress-total {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+}
+
+
+/* === 标题区三列布局 === */
+.app-header {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 4px;
+}
+
+.app-header-left,
+.app-header-right {
+  width: 88px;
+  flex-shrink: 0;
+}
+
+.app-header-center {
+  flex: 1;
+  text-align: center;
+}
+
+/* 左侧：唱段信息三行 */
+.header-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+}
+
+.header-track-opera {
+  font-size: 0.82rem;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.header-track-segment {
+  font-size: 0.76rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+}
+
+.header-track-performer {
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+/* 右侧：进度数字 */
+.app-header-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-progress-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  min-width: 56px;
+}
+
+.header-progress-num {
+  font-size: 1.4rem;
+  color: var(--teal);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+  line-height: 1.1;
+}
+
+.header-progress-sep {
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  line-height: 1;
+}
+
+.header-progress-total {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  font-family: 'Courier New', monospace;
+  line-height: 1;
+}
+
+
+/* ================================================
+   全局 UI 统一升级覆盖层
+   圆角 / 间距 / 字体 / 信息层级
+================================================ */
+
+/* --- 全局卡片统一圆角 --- */
+.score-box, .next-box, .opera-progress-box {
+  border-radius: 14px !important;
+  padding: 12px 8px !important;
+  border: 1px solid var(--border-light) !important;
+}
+
+/* --- 标签字体统一 --- */
+.score-label {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.25em !important;
+  color: var(--ink-muted) !important;
+  margin-bottom: 5px !important;
+}
+
+/* --- 得分数字 --- */
+.score-value {
+  font-size: 1.5rem !important;
+  line-height: 1.2 !important;
+}
+.score-value.opera-gain {
+  font-size: 1.3rem !important;
+  color: var(--vermilion) !important;
+}
+
+/* --- 戏韵进度条优化 --- */
+.opera-progress-box {
+  gap: 0 !important;
+}
+.opera-progress-value {
+  font-size: 0.95rem !important;
+  margin-bottom: 8px !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.08em !important;
+}
+.opera-bar-track {
+  height: 5px !important;
+  border-radius: 3px !important;
+}
+.opera-bar-fill {
+  border-radius: 3px !important;
+}
+
+/* --- 工具栏按钮优化 --- */
+.tool-panel {
+  gap: 10px !important;
+}
+.tool-btn {
+  border-radius: 14px !important;
+  height: 48px !important;
+  font-size: 0.82rem !important;
+  letter-spacing: 0.08em !important;
+  border: 1px solid var(--border) !important;
+}
+.tool-btn--restart {
+  border-color: var(--vermilion) !important;
+}
+.tool-btn--collection {
+  border-color: var(--teal) !important;
+}
+
+/* --- 信息栏间距 --- */
+.info-panel {
+  gap: 10px !important;
+}
+
+/* --- 模式按钮优化 --- */
+.mode-btn {
+  border-radius: 20px !important;
+  font-size: 0.9rem !important;
+  height: 36px !important;
+  padding: 0 20px !important;
+  letter-spacing: 0.15em !important;
+  border: 1.5px solid var(--border) !important;
+}
+.mode-btn--active {
+  background: var(--teal) !important;
+  border-color: var(--teal) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(46,125,110,0.18) !important;
+}
+
+/* --- 标题区域 --- */
+.title {
+  font-size: 1.8rem !important;
+  letter-spacing: 0.55em !important;
+}
+.subtitle {
+  font-size: 0.78rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.28em !important;
+  opacity: 0.8 !important;
+  margin-top: 4px !important;
+}
+
+/* --- 头部唱段卡（左侧）--- */
+.app-header-left { width: auto !important; flex: 1 !important; }
+.app-header-right { width: auto !important; flex-shrink: 0 !important; }
+.app-header-center { flex: 0 0 auto !important; padding: 0 12px !important; }
+
+.header-track-info {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+.header-track-opera {
+  font-size: 0.85rem !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  line-height: 1.4 !important;
+}
+.header-track-segment {
+  font-size: 0.78rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+}
+.header-track-performer {
+  font-size: 0.7rem !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.2em !important;
+  opacity: 0.9 !important;
+}
+
+/* --- 头部进度卡（右侧）--- */
+.header-progress-box {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+  padding: 8px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+.header-progress-box::before {
+  content: "当前进度" !important;
+  font-size: 0.62rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.2em !important;
+  margin-bottom: 3px !important;
+  display: block !important;
+}
+.header-progress-num {
+  font-size: 1.35rem !important;
+  color: var(--teal) !important;
+  font-family: 'Courier New', monospace !important;
+  line-height: 1.1 !important;
+}
+.header-progress-sep {
+  font-size: 0.75rem !important;
+  color: var(--border) !important;
+  margin: 0 2px !important;
+}
+.header-progress-total {
+  font-size: 0.9rem !important;
+  color: var(--ink-muted) !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+/* --- 暂停/Game Over 遮罩 --- */
+.overlay {
+  gap: 16px !important;
+  backdrop-filter: blur(2px) !important;
+}
+.overlay-title {
+  font-size: 1.7rem !important;
+  letter-spacing: 0.45em !important;
+}
+.ctrl-btn {
+  border-radius: 22px !important;
+  padding: 11px 28px !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* --- app 整体间距 --- */
+.app { gap: 10px !important; padding: 10px 4px 20px !important; }
+.app-main { gap: 6px !important; }
+
+
+/* === 顶部三列布局：标题绝对居中 === */
+.app-header {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 4px !important;
+  min-height: 64px !important;
+}
+/* 标题区：绝对居中，不占布局空间 */
+.app-header-center {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+  pointer-events: none !important;
+  flex: none !important;
+  padding: 0 !important;
+}
+/* 左侧唱段卡 */
+.app-header-left {
+  flex: 0 0 auto !important;
+  max-width: 160px !important;
+  z-index: 1 !important;
+}
+/* 右侧进度卡 */
+.app-header-right {
+  flex: 0 0 auto !important;
+  z-index: 1 !important;
+}
+/* 唱段信息卡 */
+.header-track-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  padding: 7px 10px !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+}
+.header-track-label {
+  font-size: 0.58rem !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.25em !important;
+  opacity: 0.7 !important;
+  line-height: 1.3 !important;
+}
+.header-track-opera {
+  font-size: 0.88rem !important;
+  color: var(--ink) !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+}
+.header-track-segment {
+  font-size: 0.76rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.4 !important;
+}
+.header-track-performer {
+  font-size: 0.68rem !important;
+  color: var(--teal) !important;
+  letter-spacing: 0.2em !important;
+  opacity: 0.85 !important;
+  line-height: 1.3 !important;
+}
+/* 进度卡 */
+.header-progress-box {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 2px !important;
+  padding: 7px 12px !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+}
+.header-progress-label {
+  font-size: 0.58rem !important;
+  color: var(--ink-muted) !important;
+  letter-spacing: 0.2em !important;
+  opacity: 0.7 !important;
+}
+.header-progress-count {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 1px !important;
+  margin: 0 !important;
+}
+.header-progress-num {
+  font-size: 1.4rem !important;
+  color: var(--teal) !important;
+  font-family: 'Courier New', monospace !important;
+  line-height: 1 !important;
+}
+.header-progress-sep {
+  font-size: 0.75rem !important;
+  color: var(--border) !important;
+  margin: 0 2px !important;
+}
+.header-progress-total {
+  font-size: 0.9rem !important;
+  color: var(--ink-muted) !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+
+/* === 顶部卡片精修：去标签 + 字体放大 + 减少留白 === */
+.header-track-label { display: none !important; }
+.header-progress-label { display: none !important; }
+
+.header-track-info {
+  padding: 5px 9px !important;
+  gap: 2px !important;
+}
+.header-track-opera {
+  font-size: 0.95rem !important;
+}
+.header-track-segment {
+  font-size: 0.82rem !important;
+}
+.header-track-performer {
+  font-size: 0.74rem !important;
+}
+
+.header-progress-box {
+  padding: 5px 12px !important;
+  gap: 0 !important;
+}
+.header-progress-num {
+  font-size: 1.5rem !important;
+}
+.header-progress-total {
+  font-size: 1rem !important;
+}
+
+/* 全局卡片字体略大 */
+.score-label { font-size: 0.78rem !important; }
+.score-value { font-size: 1.6rem !important; }
+.score-value.opera-gain { font-size: 1.4rem !important; }
+.opera-progress-value { font-size: 1rem !important; }
+.tool-btn { font-size: 0.88rem !important; }
+.title { font-size: 1.9rem !important; }
+.subtitle { font-size: 0.82rem !important; }
+
+
+/* === 卡片顶部对齐副标题 + 信息栅字体放大 === */
+
+/* header 顶部对齐 */
+.app-header { align-items: flex-start !important; }
+
+/* 标题区垂直居中对齐 */
+.app-header-center {
+  top: 0 !important;
+  transform: translateX(-50%) !important;
+}
+
+/* 戏韵 label + 数值 */
+.score-label { font-size: 0.85rem !important; letter-spacing: 0.2em !important; margin-bottom: 6px !important; }
+.score-value { font-size: 1.8rem !important; }
+.score-value.opera-gain { font-size: 1.6rem !important; }
+
+/* 戏韵进度条 */
+.opera-progress-box { padding: 12px 8px !important; }
+.opera-progress-value { font-size: 1.1rem !important; letter-spacing: 0.1em !important; margin-bottom: 8px !important; }
+
+/* 下一块预览区 */
+.next-box { padding: 12px 8px !important; }
+.preview-cell { width: 20px !important; height: 20px !important; }
+
+
+/* === 标题区下移：让副标题与左右卡顶部对齐 === */
+.app-header-center {
+  /* 让【越韵方块】在上，副标题与左右卡顶部对齐 */
+  top: 0 !important;
+  transform: translateX(-50%) !important;
+  padding-top: 0 !important;
+}
+
+/* 左右卡顶部跟剩余空间到副标题对齐：加 padding-top 把卡片内容往下移 */
+.header-track-info,
+.header-progress-box {
+  margin-top: 1.6rem !important;
+}
+
+
+/* === 修复：去掉 margin-top，改用 padding-top 推标题区 === */
+.header-track-info,
+.header-progress-box {
+  margin-top: 0 !important;
+}
+/* 标题区往下移，让副标题与左右卡顶部对齐 */
+.app-header-center {
+  padding-top: 0.1rem !important;
+}
+/* 标题字体稍小，副标题自然就靠近左右卡顶部 */
+.title { font-size: 1.6rem !important; letter-spacing: 0.5em !important; }
+.subtitle { font-size: 0.8rem !important; margin-top: 2px !important; }
+
+
+/* === 顶部布局最终版：常规三列 + 底部对齐 === */
+.app-header {
+  align-items: flex-end !important;
+  padding-bottom: 0 !important;
+}
+/* 标题区恢复常规内联居中，去掉绝对定位 */
+.app-header-center {
+  position: static !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  padding-top: 0 !important;
+  flex: 1 !important;
+  text-align: center !important;
+}
+.app-header-left { flex: 0 0 auto !important; }
+.app-header-right { flex: 0 0 auto !important; }
+
+/* 标题和副标题大小恢复 */
+.title { font-size: 1.9rem !important; }
+.subtitle { font-size: 0.8rem !important; margin-top: 3px !important; margin-bottom: 0 !important; }
+
+/* 进度卡数字放大 */
+.header-progress-num { font-size: 1.8rem !important; }
+.header-progress-total { font-size: 1.1rem !important; }
+.header-progress-sep { font-size: 0.9rem !important; color: var(--ink-muted) !important; }
+
+
+/* === mode-bar 三列布局：唱段卡 | 模式按鈕 | 进度卡 === */
+.mode-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  gap: 8px !important;
+  padding: 0 4px !important;
+}
+.modebar-track,
+.modebar-progress {
+  flex: 0 0 auto !important;
+}
+.modebar-btns {
+  display: flex !important;
+  gap: 8px !important;
+  flex: 1 !important;
+  justify-content: center !important;
+}
+
+/* header 只有标题，两种模式完全一致 */
+.app-header {
+  text-align: center !important;
+  display: block !important;
+  padding: 0 !important;
+  min-height: auto !important;
+}
+.app-header-left,
+.app-header-right,
+.app-header-center { display: none !important; }
+
+/* 唱段卡和进度卡样式 */
+.header-track-info {
+  padding: 6px 10px !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+  margin-top: 0 !important;
+}
+.header-track-opera { font-size: 0.92rem !important; font-weight: 600 !important; color: var(--ink) !important; letter-spacing: 0.08em !important; }
+.header-track-segment { font-size: 0.78rem !important; color: var(--ink-muted) !important; letter-spacing: 0.06em !important; }
+.header-track-performer { font-size: 0.7rem !important; color: var(--teal) !important; letter-spacing: 0.18em !important; }
+
+.header-progress-box {
+  padding: 6px 12px !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 0 !important;
+}
+.header-progress-count { display: flex !important; align-items: baseline !important; gap: 1px !important; margin: 0 !important; }
+.header-progress-num { font-size: 1.6rem !important; color: var(--teal) !important; font-family: 'Courier New', monospace !important; line-height: 1 !important; }
+.header-progress-sep { font-size: 0.85rem !important; color: var(--ink-muted) !important; margin: 0 2px !important; }
+.header-progress-total { font-size: 1rem !important; color: var(--ink-muted) !important; font-family: 'Courier New', monospace !important; }
+
+
+/* === mode-bar 按鈕位置两种模式完全一致 === */
+.mode-bar {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  padding: 0 4px !important;
+  gap: 0 !important;
+}
+/* 模式按鈕组：始终居中 */
+.modebar-btns {
+  display: flex !important;
+  gap: 8px !important;
+  flex: 0 0 auto !important;
+  justify-content: center !important;
+  z-index: 1 !important;
+}
+/* 唱段卡：绝对定位左侧 */
+.modebar-track {
+  position: absolute !important;
+  left: 4px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+/* 进度卡：绝对定位右侧 */
+.modebar-progress {
+  position: absolute !important;
+  right: 4px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+
+/* === 唱词卡/进度卡对齐 + 居中 + 信息栏减高 === */
+
+/* mode-bar 左侧唱段卡左对齐 game-area */
+.modebar-track { left: 0 !important; }
+.modebar-progress { right: 0 !important; }
+
+/* 唱段卡所有内容居中 */
+.header-track-info {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+/* info-panel 内卡片减小高度 */
+.score-box, .next-box, .opera-progress-box {
+  padding: 8px 6px !important;
+}
+.score-label { margin-bottom: 3px !important; }
+.score-value { font-size: 1.5rem !important; line-height: 1.1 !important; }
+.opera-progress-value { font-size: 0.95rem !important; margin-bottom: 6px !important; }
+.next-box .score-label { margin-bottom: 5px !important; }
+
+/* info-panel 和 tool-panel 宽度 */
+.info-panel { width: 120px !important; gap: 8px !important; }
+.tool-panel { width: 80px !important; gap: 8px !important; }
+.tool-btn { height: 44px !important; font-size: 0.82rem !important; }
+
+
+/* === info/tool-panel 整体下移，避免与上方卡片重叠 === */
+.info-panel, .tool-panel { margin-top: 12px !important; }
+
+
+/* === app-main 整体下移，三列同步对齐 === */
+.app-main { margin-top: 12px !important; }
+/* 取消 info/tool-panel 单独的 margin-top，由 app-main 统一控制 */
+.info-panel, .tool-panel { margin-top: 0 !important; }
+
+
+/* === 加宽 info/tool-panel + 减小页边距 === */
+.info-panel, .tool-panel { width: 120px !important; }
+.app-main { gap: 4px !important; }
+.app { padding-left: 2px !important; padding-right: 2px !important; }
+
+
+/* === dpad 改为棋盘两侧各两枚按鈕 === */
+.dpad {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding: 8px 0 0 !important;
+  gap: 0 !important;
+}
+.dpad-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 50% !important;
+}
+.dpad-col--left { align-items: flex-start !important; padding-left: 4px !important; }
+.dpad-col--right { align-items: flex-end !important; padding-right: 4px !important; }
+
+/* 两侧按鈕统一样式 */
+.dpad-btn--side {
+  width: 72px !important;
+  height: 72px !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 14px !important;
+  color: var(--ink) !important;
+  border-radius: 50% !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.08em !important;
+  cursor: pointer !important;
+  box-shadow: 0 3px 0 var(--border) !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  touch-action: manipulation !important;
+  transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+.dpad-btn--side:active {
+  transform: translateY(3px) !important;
+  box-shadow: none !important;
+  background: var(--border-light) !important;
+}
+/* 下落按鈕轻微强调 */
+.dpad-btn--fall {
+  border-color: var(--teal) !important;
+  color: var(--teal) !important;
+}
+.dpad-btn--fall:active {
+  background: rgba(46,125,110,0.08) !important;
+}
+/* 隐藏旧按鈕 */
+.dpad-btn--rotate, .dpad-btn--dir, .dpad-btn--drop, .dpad-row { display: none !important; }
+
+
+/* === side-dpad: 棋盘左右两列操作按鈕 === */
+
+/* === side-dpad: 棋盘两侧操作按鈕（最终版） === */
+.side-dpad {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: auto;
+  flex-shrink: 0;
+  /* margin-top 由 JSX inline style 控制，CSS 不设置 */
+}
+
+.side-dpad--left { align-items: center; }
+.side-dpad--right { align-items: center; }
+
+/* 第二个按鈕额外间距 */
+.side-dpad--left .dpad-btn--side:last-child { margin-top: 10px; }
+.side-dpad--right .dpad-btn--side:last-child { margin-top: 10px; }
+
+
+/* === 控制键正圆 + 图标放大 === */
+.dpad-btn--side {
+  width: 64px !important;
+  height: 64px !important;
+  min-width: 64px !important;
+  min-height: 64px !important;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+  flex-shrink: 0 !important;
+  font-size: 2.2rem !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+
+/* === 旋转键暗红色 === */
+.side-dpad--left .dpad-btn--side:last-child {
+  color: var(--vermilion-dark) !important;
+  border-color: var(--vermilion-dark) !important;
+}
+
+
+/* === 首页 === */
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  text-align: center;
+}
+.home-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.home-title {
+  font-size: 3rem;
+  letter-spacing: 0.6em;
+  color: var(--vermilion);
+  font-weight: normal;
+  line-height: 1.2;
+}
+.home-subtitle {
+  font-size: 1rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.35em;
+  opacity: 0.8;
+}
+.home-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.home-btn {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  letter-spacing: 0.2em;
+}
+.home-btn--primary {
+  background: var(--vermilion);
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 48px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 0 var(--vermilion-dark);
+}
+.home-btn--primary:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+.home-mode-btns {
+  display: flex;
+  gap: 12px;
+}
+.home-btn--mode {
+  background: var(--surface);
+  color: var(--ink-muted);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.88rem;
+}
+.home-btn--mode:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.home-credit {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.25em;
+  opacity: 0.5;
+}
+
+
+/* === 首页新增按鈕 + 游戏页留白 === */
+/* 首页导航按鈕组 */
+.home-nav-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+}
+.home-btn--nav {
+  background: var(--surface);
+  color: var(--teal);
+  border: 1.5px solid var(--teal);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.home-btn--nav:hover {
+  background: var(--teal);
+  color: #fff;
+}
+/* 首页署名更新 */
+.home-credit {
+  font-size: 0.72rem !important;
+  letter-spacing: 0.3em !important;
+}
+/* 游戏页顶部留白 */
+.app { padding-top: 20px !important; }
+/* 游戏页回首页按鈕 */
+.tool-btn--home {
+  border-color: var(--ink-muted) !important;
+  color: var(--ink-muted) !important;
+  font-size: 0.8rem !important;
+}
+.tool-btn--home:hover {
+  border-color: var(--vermilion) !important;
+  color: var(--vermilion) !important;
+}
+
+
+/* === 游戏页顶部返回按鈕 === */
+.game-back-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: transparent;
+  border: none;
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+  z-index: 10;
+}
+.game-back-btn:hover { color: var(--vermilion); background: rgba(181,71,58,0.06); }
+.app { position: relative !important; }
+
+/* mode-bar 去掉按鈕后居中唱段卡 */
+.mode-bar {
+  justify-content: center !important;
+}
+.modebar-track {
+  position: static !important;
+  left: auto !important;
+  transform: none !important;
+  top: auto !important;
+}
+.modebar-progress {
+  position: static !important;
+  right: auto !important;
+  transform: none !important;
+  top: auto !important;
+}
+/* 戏曲模式：唱段卡居中，进度卡靠右 */
+.mode-bar {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+  padding: 0 8px !important;
+}
+
+/* 首页 UI 放大 */
+.home-title { font-size: 3.6rem !important; }
+.home-subtitle { font-size: 1.1rem !important; }
+.home-btn--primary { font-size: 1.2rem !important; padding: 16px 56px !important; border-radius: 32px !important; }
+.home-btn--mode { font-size: 0.95rem !important; padding: 10px 24px !important; }
+.home-btn--nav { font-size: 0.95rem !important; padding: 10px 24px !important; }
+.home-content { gap: 56px !important; }
+.home-title-area { gap: 16px !important; }
+.home-actions { gap: 20px !important; }
+.home-credit { font-size: 0.82rem !important; }
+
+
+/* === 首页署名深灰色，不扁 === */
+.home-credit {
+  color: #555 !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.2em !important;
+  font-stretch: normal !important;
+  transform: none !important;
+}
+
+/* === 游戏页返回按鈕只显符号 === */
+.game-back-btn {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  background: transparent !important;
+  border: none !important;
+  color: var(--ink-muted) !important;
+  font-size: 1.3rem !important;
+  cursor: pointer !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+  z-index: 20 !important;
+  line-height: 1 !important;
+  transition: color 0.15s, background 0.15s !important;
+}
+.game-back-btn:hover { color: var(--vermilion) !important; background: rgba(181,71,58,0.07) !important; }
+.app { position: relative !important; }
+
+/* === 戏曲模式：mode-bar 居中拉长 + 进度卡靠右 === */
+.mode-bar {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+  width: 100% !important;
+  padding: 0 8px !important;
+}
+.modebar-track {
+  flex: 1 !important;
+  display: flex !important;
+  justify-content: center !important;
+  min-width: 0 !important;
+}
+.modebar-progress {
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+
+/* === 返回按鈕加粗加大 === */
+.game-back-btn {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--ink) !important;
+  padding: 2px 12px !important;
+}
+.game-back-btn:hover { color: var(--vermilion) !important; }
+
+/* === 戏曲模式唱段卡拉宽 + 字体加大 === */
+.modebar-track {
+  flex: 1 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+.header-track-info {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 3px !important;
+  width: 100% !important;
+}
+.header-track-opera {
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.12em !important;
+}
+.header-track-segment {
+  font-size: 0.9rem !important;
+  letter-spacing: 0.1em !important;
+}
+.header-track-performer {
+  font-size: 0.82rem !important;
+  opacity: 0.75 !important;
+}
+
+
+/* === 游戏页顶部三段式导航条 === */
+.game-topbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  gap: 8px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  margin-bottom: 8px;
+}
+/* 左列：返回按鈕 */
+.topbar-left {
+  flex-shrink: 0;
+  width: 68px;
+}
+/* 中列：唱段主信息条 */
+.topbar-center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+/* 右列：进度状态 */
+.topbar-right {
+  flex-shrink: 0;
+  width: 68px;
+  display: flex;
+  justify-content: flex-end;
+}
+/* 返回按鈕样式 */
+.game-back-btn {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  background: var(--surface) !important;
+  border: 1.5px solid var(--border) !important;
+  color: var(--ink-muted) !important;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  padding: 5px 10px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: all 0.15s !important;
+  z-index: auto !important;
+  top: auto !important;
+  left: auto !important;
+}
+.game-back-btn:hover {
+  border-color: var(--vermilion) !important;
+  color: var(--vermilion) !important;
+  background: rgba(181,71,58,0.05) !important;
+}
+/* 唱段主信息条内容 */
+.topbar-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  line-height: 1.3;
+}
+.topbar-opera {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.12em;
+}
+.topbar-segment {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--vermilion);
+  letter-spacing: 0.1em;
+}
+.topbar-performer {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  opacity: 0.7;
+  letter-spacing: 0.15em;
+}
+/* 进度状态块 */
+.topbar-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  background: var(--surface-alt, var(--surface));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px 10px;
+  min-width: 52px;
+}
+.topbar-progress-label {
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+  opacity: 0.6;
+  letter-spacing: 0.1em;
+}
+.topbar-progress-count {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.topbar-progress-num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.topbar-progress-sep {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  opacity: 0.5;
+}
+.topbar-progress-total {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+}
+
+
+/* === 返回按鈕加大深灰 + 进度卡加强 === */
+.game-back-btn {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: #444 !important;
+  border-color: #bbb !important;
+  padding: 7px 14px !important;
+  background: #f5f5f5 !important;
+}
+.game-back-btn:hover {
+  color: var(--vermilion) !important;
+  border-color: var(--vermilion) !important;
+  background: rgba(181,71,58,0.06) !important;
+}
+
+.topbar-progress {
+  background: var(--vermilion) !important;
+  border: none !important;
+  padding: 6px 14px !important;
+}
+.topbar-progress-label {
+  color: rgba(255,255,255,0.75) !important;
+  opacity: 1 !important;
+  font-size: 0.68rem !important;
+}
+.topbar-progress-num {
+  color: #fff !important;
+  font-size: 1.3rem !important;
+}
+.topbar-progress-sep {
+  color: rgba(255,255,255,0.6) !important;
+  opacity: 1 !important;
+}
+.topbar-progress-total {
+  color: rgba(255,255,255,0.8) !important;
+}
+
+
+/* === 进度卡浅绿配色 === */
+.topbar-progress {
+  background: #e8f5e9 !important;
+  border: 1.5px solid #a5d6a7 !important;
+}
+.topbar-progress-label {
+  color: #555 !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+.topbar-progress-num {
+  color: #2e7d32 !important;
+  font-size: 1.3rem !important;
+}
+.topbar-progress-sep {
+  color: #66bb6a !important;
+  opacity: 1 !important;
+}
+.topbar-progress-total {
+  color: #388e3c !important;
+}
+
+
+/* === 首页模式入口：按鈕 + 清空面板 === */
+.home-mode-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.home-btn--clear {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: 1.5px solid #ccc !important;
+  color: #aaa !important;
+  font-size: 0.75rem !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s !important;
+  flex-shrink: 0 !important;
+}
+.home-btn--clear:hover {
+  border-color: var(--vermilion) !important;
+  color: var(--vermilion) !important;
+  background: rgba(181,71,58,0.06) !important;
+}
+
+
+/* === 首页模式分组布局 === */
+.home-mode-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+/* 清空进度文本按鈕 */
+.home-btn--reset {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 0.72rem;
+  font-family: inherit;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  padding: 2px 6px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s;
+}
+.home-btn--reset:hover {
+  color: var(--vermilion);
+}
+
+
+/* === 首页模式按鈕黑色 + 清空按鈕深灰加大 === */
+.home-btn--mode { color: #111 !important; font-weight: 500 !important; }
+.home-btn--reset {
+  color: #555 !important;
+  font-size: 0.82rem !important;
+}
+.home-btn--reset:hover { color: var(--vermilion) !important; }
+
+
+/* === 首页整体字体再调大 === */
+.home-title { font-size: 4rem !important; }
+.home-subtitle { font-size: 1.2rem !important; }
+.home-btn--primary { font-size: 1.25rem !important; padding: 16px 60px !important; }
+.home-btn--mode { font-size: 1.05rem !important; padding: 12px 28px !important; }
+.home-btn--nav { font-size: 1rem !important; padding: 11px 26px !important; }
+.home-btn--reset { font-size: 0.88rem !important; }
+.home-credit { font-size: 0.85rem !important; }
+
+
+/* === 通关页停止播放按鈕 === */
+.ctrl-btn--stop {
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--ink-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ctrl-btn--stop:hover {
+  border-color: var(--vermilion);
+  color: var(--vermilion);
+}
+
+
+/* === 通关页按鈕布局优化 === */
+.stage-clear-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.stage-clear-btns-row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+.stage-clear-btns-row .ctrl-btn {
+  flex: 1;
+  max-width: 140px;
+}
+.stage-clear-back-btn {
+  width: 100%;
+  max-width: 292px;
+  font-size: 0.88rem !important;
+  opacity: 0.8;
+}
+
+
+/* === 碎片解锁提示覆盖层 === */
+.fragment-unlock-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(0,0,0,0.75);
+  border-radius: 12px;
+  padding: 32px 24px;
+}
+.fragment-unlock-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--gold, #c9a96e);
+}
+.fragment-unlock-count {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ink, #f0e6d3);
+  letter-spacing: 0.1em;
+}
+
+
+/* ================================================
+   手机 / 平板竖屏优化
+   主要针对 portrait 模式
+================================================ */
+
+/* 全局：禁止长按菜单、触控高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* ---- 手机竖屏 (≤ 480px) ---- */
+@media (max-width: 480px) {
+  .app {
+    padding: 6px 2px 12px;
+    gap: 6px;
+  }
+  .title { font-size: 1.3rem !important; letter-spacing: 0.25em !important; }
+  .subtitle { font-size: 0.68rem !important; }
+
+  /* 棋盘两侧面板更窄 */
+  .info-panel { width: 72px !important; gap: 6px !important; }
+  .tool-panel { width: 64px !important; gap: 6px !important; }
+  .app-main { gap: 2px !important; }
+
+  /* 得分卡片紧凑 */
+  .score-box, .next-box, .opera-progress-box {
+    padding: 6px 4px !important;
+    border-radius: 10px !important;
+  }
+  .score-label { font-size: 0.65rem !important; margin-bottom: 2px !important; }
+  .score-value { font-size: 1.2rem !important; }
+
+  /* 工具按钮更大触控区 */
+  .tool-btn {
+    height: 48px !important;
+    font-size: 0.78rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* 两侧 dpad 按钮加大 */
+  .dpad-btn--side {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 1.1rem !important;
+    border-radius: 50% !important;
+  }
+
+  /* 底部 dpad */
+  .dpad-btn--rotate {
+    width: 100% !important;
+    height: 56px !important;
+    font-size: 1rem !important;
+  }
+  .dpad-btn--dir { height: 56px !important; }
+  .dpad-btn--drop { height: 52px !important; }
+
+  /* overlay 按钮更大 */
+  .ctrl-btn {
+    padding: 12px 20px !important;
+    font-size: 0.95rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* 通关页文字适配 */
+  .stage-clear-title { font-size: 1.3rem !important; }
+  .fragment-text { font-size: 1rem !important; }
+}
+
+/* ---- 平板竖屏 (481px - 900px) ---- */
+@media (min-width: 481px) and (max-width: 900px) {
+  .app { padding: 10px 8px 16px; gap: 10px; }
+  .title { font-size: 1.8rem !important; }
+
+  .info-panel { width: 100px !important; }
+  .tool-panel { width: 88px !important; }
+
+  .dpad-btn--side {
+    width: 80px !important;
+    height: 80px !important;
+    font-size: 1.2rem !important;
+  }
+  .dpad-btn--rotate { height: 64px !important; }
+  .dpad-btn--dir { height: 64px !important; }
+  .dpad-btn--drop { height: 58px !important; }
+
+  .tool-btn { height: 52px !important; font-size: 0.9rem !important; }
+  .ctrl-btn { padding: 14px 24px !important; font-size: 1rem !important; }
+}
+
+/* ---- 首页按钮触控优化 ---- */
+@media (max-width: 900px) {
+  .home-btn {
+    min-height: 52px !important;
+    font-size: 1rem !important;
+  }
+  .home-btn--primary { min-height: 58px !important; }
+}

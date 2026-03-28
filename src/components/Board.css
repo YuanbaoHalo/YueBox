@@ -1,0 +1,100 @@
+.board {
+  display: inline-flex;
+  flex-direction: column;
+  background-color: #ede8de;
+}
+
+.board-row { display: flex; }
+
+.cell {
+  width: 34px;
+  height: 34px;
+  box-sizing: border-box;
+  border: 1px solid #e0d8cc;
+}
+
+.cell-empty {
+  background-color: #ede8de;
+}
+
+/* 消行 flash 动画：满行闪亮后消失 */
+@keyframes row-clear {
+  0%   { filter: brightness(1); }
+  40%  { filter: brightness(1.8) saturate(1.4); }
+  100% { filter: brightness(1); }
+}
+
+/* 满行时整行所有 cell 都触发动画（包括 cell-color-X） */
+.board-row--clearing .cell {
+  animation: row-clear 0.18s ease-out;
+}
+
+/* 方块高光：顶部白色渐变模拟光源 */
+.cell-color-1,
+.cell-color-2,
+.cell-color-3,
+.cell-color-4,
+.cell-color-5 {
+  position: relative;
+}
+.cell-color-1::after,
+.cell-color-2::after,
+.cell-color-3::after,
+.cell-color-4::after,
+.cell-color-5::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.22) 0%,
+    rgba(255,255,255,0.06) 40%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* 1：柔朱红（L形） */
+.cell-color-1 {
+  background-color: #b5473a;
+  border-color: #c96a5e;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* 2：柔青绿（J形） */
+.cell-color-2 {
+  background-color: #2e7d6e;
+  border-color: #4a9e8e;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* 3：柔石青（I形） */
+.cell-color-3 {
+  background-color: #4878a0;
+  border-color: #6a9abf;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* 4：柔赭黄（O形） */
+.cell-color-4 {
+  background-color: #a85c1a;
+  border-color: #c87830;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* 5：柔藕紫（T形） */
+.cell-color-5 {
+  background-color: #725090;
+  border-color: #9470aa;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15);
+}
+
+/* =====================
+   响应式：小屏缩小格子
+   ===================== */
+@media (max-width: 420px) {
+  .cell { width: 28px; height: 28px; }
+}
+@media (max-width: 360px) {
+  .cell { width: 24px; height: 24px; }
+}

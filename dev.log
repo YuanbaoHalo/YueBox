@@ -1,0 +1,537 @@
+
+> yuebox@1.0.0 dev
+> vite
+
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+
+  VITE v8.0.3  ready in 162 ms
+
+  ➜  Local:   http://localhost:5175/
+  ➜  Network: use --host to expose
+16:55:43 [vite] (client) hmr update /src/App.tsx
+16:55:43 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. undefined                  useState
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+16:55:43 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateReducer node_modules/react-dom/cjs/react-dom-client.development.js:7967:17
+ > Object.useState node_modules/react-dom/cjs/react-dom-client.development.js:26511:17
+ > exports.useState node_modules/react/cjs/react.development.js:1263:33
+ > useTetris src/hooks/useTetris.ts:41:18
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+16:55:43 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:03:33 [vite] (client) hmr update /src/App.tsx
+17:03:33 [vite] (client) hmr update /src/App.tsx
+17:03:33 [vite] (client) hmr update /src/App.tsx
+17:03:33 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. undefined                  useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:03:33 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. undefined                  useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:03:33 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateEffectImpl node_modules/react-dom/cjs/react-dom-client.development.js:8642:17
+ > Object.useEffect node_modules/react-dom/cjs/react-dom-client.development.js:26461:8
+ > exports.useEffect node_modules/react/cjs/react.development.js:1225:33
+ > useTetris src/hooks/useTetris.ts:49:2
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:03:33 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:03:33 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateEffectImpl node_modules/react-dom/cjs/react-dom-client.development.js:8642:17
+ > Object.useEffect node_modules/react-dom/cjs/react-dom-client.development.js:26461:8
+ > exports.useEffect node_modules/react/cjs/react.development.js:1225:33
+ > useTetris src/hooks/useTetris.ts:49:2
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:03:33 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:07:29 [vite] (client) hmr update /src/App.tsx
+17:07:29 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useEffect                  useEffect
+4. undefined                  useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:07:29 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateEffectImpl node_modules/react-dom/cjs/react-dom-client.development.js:8642:17
+ > Object.useEffect node_modules/react-dom/cjs/react-dom-client.development.js:26461:8
+ > exports.useEffect node_modules/react/cjs/react.development.js:1225:33
+ > useTetris src/hooks/useTetris.ts:74:2
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:07:29 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:07:29 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useEffect                  useEffect
+4. undefined                  useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:07:29 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateEffectImpl node_modules/react-dom/cjs/react-dom-client.development.js:8642:17
+ > Object.useEffect node_modules/react-dom/cjs/react-dom-client.development.js:26461:8
+ > exports.useEffect node_modules/react/cjs/react.development.js:1225:33
+ > useTetris src/hooks/useTetris.ts:74:2
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:07:29 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:07:29 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useEffect                  useEffect
+4. undefined                  useEffect
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:07:29 [vite] (client) [Unhandled error] Error: Rendered more hooks than during the previous render.
+ > updateWorkInProgressHook node_modules/react-dom/cjs/react-dom-client.development.js:7848:16
+ > updateEffectImpl node_modules/react-dom/cjs/react-dom-client.development.js:8642:17
+ > Object.useEffect node_modules/react-dom/cjs/react-dom-client.development.js:26461:8
+ > exports.useEffect node_modules/react/cjs/react.development.js:1225:33
+ > useTetris src/hooks/useTetris.ts:74:2
+ > App src/App.tsx:6:20
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:07:29 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:09:38 [vite] (client) hmr update /src/App.tsx
+17:21:51 [vite] (client) hmr update /src/App.tsx
+17:21:51 [vite] (client) hmr update /src/App.tsx
+17:22:18 [vite] (client) hmr update /src/App.tsx
+17:22:27 [vite] (client) hmr update /src/App.css
+17:29:24 [vite] (client) hmr update /src/App.tsx
+17:29:24 [vite] (client) hmr update /src/App.tsx
+17:29:40 [vite] (client) hmr update /src/App.tsx
+17:29:48 [vite] (client) hmr update /src/App.tsx
+17:30:02 [vite] (client) hmr update /src/App.tsx
+17:30:02 [vite] (client) hmr update /src/App.css
+17:42:03 [vite] (client) hmr update /src/App.tsx
+17:48:36 [vite] (client) hmr update /src/App.tsx
+17:48:37 [vite] (client) hmr update /src/App.tsx
+17:49:02 [vite] (client) hmr update /src/App.css
+17:49:09 [vite] (client) hmr update /src/components/Board.css
+17:54:18 [vite] (client) hmr update /src/App.tsx
+17:54:18 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useState                   useState
+4. useState                   useState
+5. useState                   useState
+6. useEffect                  useState
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+17:54:18 [vite] (client) [Unhandled error] Error: Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)
+ > updateReducerImpl node_modules/react-dom/cjs/react-dom-client.development.js:7973:14
+ > updateReducer node_modules/react-dom/cjs/react-dom-client.development.js:7968:13
+ > Object.useState node_modules/react-dom/cjs/react-dom-client.development.js:26511:17
+ > exports.useState node_modules/react/cjs/react.development.js:1263:33
+ > useTetris src/hooks/useTetris.ts:139:34
+ > App src/App.tsx:6:46
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:54:18 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+17:54:18 [vite] (client) hmr update /src/App.tsx
+17:54:18 [vite] (client) hmr update /src/App.tsx
+17:54:47 [vite] (client) hmr update /src/App.tsx
+17:54:47 [vite] (client) hmr update /src/App.css
+17:59:07 [vite] (client) hmr update /src/App.tsx
+17:59:07 [vite] (client) [Unhandled error] Error: Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)
+ > updateReducerImpl node_modules/react-dom/cjs/react-dom-client.development.js:7973:14
+ > updateReducer node_modules/react-dom/cjs/react-dom-client.development.js:7968:13
+ > Object.useState node_modules/react-dom/cjs/react-dom-client.development.js:26511:17
+ > exports.useState node_modules/react/cjs/react.development.js:1263:33
+ > useTetris src/hooks/useTetris.ts:120:30
+ > App src/App.tsx:6:69
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+17:59:07 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:00:18 [vite] (client) hmr update /src/components/Board.tsx
+18:00:18 [vite] (client) hmr update /src/components/Board.css
+18:00:48 [vite] (client) hmr update /src/App.tsx
+18:01:19 [vite] (client) hmr update /src/App.css
+18:08:55 [vite] (client) hmr update /src/App.tsx
+18:08:55 [vite] (client) hmr update /src/App.tsx
+18:09:49 [vite] (client) hmr update /src/App.css
+18:09:49 [vite] (client) hmr update /src/components/Board.css
+18:13:35 [vite] (client) hmr update /src/App.tsx
+18:13:59 [vite] (client) hmr update /src/App.css
+18:21:43 [vite] (client) hmr update /src/App.tsx
+18:22:14 [vite] (client) hmr update /src/App.css
+18:22:15 [vite] (client) hmr update /src/App.css
+18:22:15 [vite] (client) hmr update /src/App.css
+18:22:15 [vite] (client) hmr update /src/App.css
+18:32:46 [vite] (client) hmr update /src/App.css
+18:32:46 [vite] (client) hmr update /src/App.css
+18:32:46 [vite] (client) hmr update /src/App.css
+18:32:46 [vite] (client) hmr update /src/App.css
+18:34:36 [vite] (client) hmr update /src/components/Board.css
+18:34:36 [vite] (client) hmr update /src/components/Board.css
+18:34:36 [vite] (client) hmr update /src/App.css
+18:34:36 [vite] (client) hmr update /src/App.css
+18:41:07 [vite] (client) hmr update /src/App.css
+18:41:44 [vite] (client) hmr update /src/App.css
+18:41:44 [vite] (client) hmr update /src/App.css
+18:41:44 [vite] (client) hmr update /src/App.css
+18:41:45 [vite] (client) hmr update /src/App.css
+18:41:45 [vite] (client) hmr update /src/App.css
+18:41:45 [vite] (client) hmr update /src/components/Board.css
+18:44:45 [vite] (client) hmr update /src/App.css
+18:47:18 [vite] (client) hmr update /src/components/Board.css
+18:47:18 [vite] (client) hmr update /src/components/Board.css
+18:47:46 [vite] (client) hmr update /src/App.css
+18:47:46 [vite] (client) hmr update /src/App.css
+18:49:00 [vite] (client) hmr update /src/App.tsx
+18:49:00 [vite] (client) hmr update /src/App.tsx
+18:49:00 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useState                   useState
+4. useState                   useState
+5. useState                   useState
+6. useState                   useState
+7. useState                   useState
+8. useState                   useState
+9. useState                   useState
+10. useEffect                 useState
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+18:49:00 [vite] (client) [Unhandled error] Error: Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)
+ > updateReducerImpl node_modules/react-dom/cjs/react-dom-client.development.js:7973:14
+ > updateReducer node_modules/react-dom/cjs/react-dom-client.development.js:7968:13
+ > Object.useState node_modules/react-dom/cjs/react-dom-client.development.js:26511:17
+ > exports.useState node_modules/react/cjs/react.development.js:1263:33
+ > useTetris src/hooks/useTetris.ts:123:42
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+18:49:00 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:49:00 [vite] (client) hmr update /src/App.tsx
+18:49:00 [vite] (client) hmr update /src/App.tsx
+18:49:11 [vite] (client) hmr update /src/components/Board.tsx
+18:49:11 [vite] (client) [Unhandled error] TypeError: Cannot read properties of undefined (reading 'includes')
+ > src/components/Board.tsx:15:47
+ > Board src/components/Board.tsx:12:13
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+
+18:49:11 [vite] (client) [console.warn] An error occurred in the <Board> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:49:21 [vite] (client) hmr update /src/App.tsx
+18:49:21 [vite] (client) [Unhandled error] TypeError: Cannot read properties of undefined (reading 'includes')
+ > src/components/Board.tsx:15:47
+ > Board src/components/Board.tsx:12:13
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+
+18:49:21 [vite] (client) [console.warn] An error occurred in the <Board> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:49:21 [vite] (client) hmr update /src/App.tsx
+18:53:58 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) [Unhandled error] ReferenceError: toggleSlow is not defined
+ > useTetris src/hooks/useTetris.ts:302:4
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+
+18:57:22 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) [Unhandled error] ReferenceError: toggleSlow is not defined
+ > useTetris src/hooks/useTetris.ts:303:4
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+
+18:57:22 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) [Unhandled error] ReferenceError: speed is not defined
+ > useTetris src/hooks/useTetris.ts:217:24
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+
+18:57:22 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) [Unhandled error] ReferenceError: speed is not defined
+ > useTetris src/hooks/useTetris.ts:217:24
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+
+18:57:22 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:57:22 [vite] (client) hmr update /src/App.tsx
+18:57:22 [vite] (client) [Unhandled error] ReferenceError: speed is not defined
+ > useTetris src/hooks/useTetris.ts:217:24
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+
+18:57:22 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:57:45 [vite] (client) hmr update /src/App.tsx
+18:58:06 [vite] (client) hmr update /src/App.tsx
+18:58:06 [vite] (client) [Unhandled error] ReferenceError: isSlow is not defined
+ > App src/App.tsx:112:35
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+18:58:06 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+18:58:06 [vite] (client) hmr update /src/App.tsx
+18:58:22 [vite] (client) hmr update /src/App.css
+19:04:34 [vite] (client) hmr update /src/App.tsx
+19:04:49 [vite] (client) hmr update /src/App.tsx
+19:04:49 [vite] (client) [console.error] React has detected a change in the order of Hooks called by App. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+1. useState                   useState
+2. useState                   useState
+3. useState                   useState
+4. useState                   useState
+5. useState                   useState
+6. useState                   useState
+7. useState                   useState
+8. useState                   useState
+9. useState                   useState
+10. useState                  useState
+11. useEffect                 useState
+   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+19:04:49 [vite] (client) [Unhandled error] Error: Should have a queue. You are likely calling Hooks conditionally, which is not allowed. (https://react.dev/link/invalid-hook-call)
+ > updateReducerImpl node_modules/react-dom/cjs/react-dom-client.development.js:7973:14
+ > updateReducer node_modules/react-dom/cjs/react-dom-client.development.js:7968:13
+ > Object.useState node_modules/react-dom/cjs/react-dom-client.development.js:26511:17
+ > exports.useState node_modules/react/cjs/react.development.js:1263:33
+ > useTetris src/hooks/useTetris.ts:145:44
+ > App src/App.tsx:34:6
+ > Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+
+19:04:49 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+19:05:01 [vite] (client) hmr update /src/App.tsx
+19:05:14 [vite] (client) hmr update /src/App.tsx
+19:06:09 [vite] (client) hmr update /src/App.tsx
+19:06:23 [vite] (client) hmr update /src/App.css
+19:08:37 [vite] (client) hmr update /src/App.tsx
+19:08:46 [vite] (client) hmr update /src/App.tsx
+19:08:53 [vite] (client) hmr update /src/App.tsx
+19:09:09 [vite] (client) hmr update /src/App.tsx
+19:14:56 [vite] (client) hmr update /src/App.tsx
+19:14:56 [vite] (client) hmr update /src/components/Board.css
+19:15:20 [vite] (client) hmr update /src/App.tsx
+19:15:20 [vite] (client) hmr update /src/App.tsx
+19:15:20 [vite] (client) hmr update /src/App.css
+19:15:20 [vite] (client) hmr update /src/App.css
+19:15:21 [vite] (client) hmr update /src/App.css
+19:21:05 [vite] (client) hmr update /src/App.tsx
+19:21:05 [vite] (client) [console.error] [vite] SyntaxError: Identifier 'playLand' has already been declared
+19:21:05 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+19:21:29 [vite] (client) hmr update /src/App.tsx
+19:21:29 [vite] (client) [console.error] [vite] SyntaxError: Identifier 'playLand' has already been declared
+19:21:29 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+19:22:14 [vite] (client) [Unhandled error] SyntaxError: Identifier 'playLand' has already been declared
+
+19:22:20 [vite] (client) [Unhandled error] SyntaxError: Identifier 'playLand' has already been declared
+
+19:22:36 [vite] (client) [Unhandled error] SyntaxError: Identifier 'playLand' has already been declared
+
+19:33:03 [vite] changed tsconfig file detected: f:/Projects/Cursor_related/YueBox/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+19:33:03 [vite] (client) hmr update /src/components/Board.css
+19:33:03 [vite] (client) page reload index.html
+19:33:03 [vite] (client) hmr update /src/App.tsx
+19:33:03 [vite] vite.config.ts changed, restarting server...
+19:33:03 [vite] (client) hmr update /src/App.tsx
+19:33:03 [vite] (client) hmr update /src/App.tsx
+19:33:03 [vite] (client) hmr update /src/App.css
+19:33:03 [vite] (client) page reload src/main.tsx
+19:33:03 [vite] (client) hmr update /src/components/Board.tsx
+19:33:03 [vite] (client) Re-optimizing dependencies because vite config has changed
+19:33:03 [vite] server restarted.
