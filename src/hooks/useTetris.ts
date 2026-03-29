@@ -126,6 +126,7 @@ export type GameMode = 'classic' | 'opera'
 
 export function useTetris(mode: GameMode = 'classic', initialState?: GameProgressState | null) {
   const [board, setBoard] = useState<BoardGrid>(() => initialState?.board ?? createEmptyBoard())
+  const boardRef = useRef<BoardGrid>(initialState?.board ?? createEmptyBoard())
   const [piece, setPiece] = useState<Piece>(() => initialState?.piece ?? createNewPiece())
   const [nextPiece, setNextPiece] = useState<Piece>(() => initialState?.nextPiece ?? createNewPiece())
   const [gameOver, setGameOver] = useState(false)
@@ -167,6 +168,9 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
 
   // 触发通关：暂停游戏，解锁片段，顺序播放音效
   // 触发通关：暂停游戏，顺序播放音效
+  // sync boardRef whenever board changes
+  useEffect(() => { boardRef.current = board }, [board])
+
   const stageClearRef = useRef(false)
   const isLockingRef = useRef(false)
   function triggerStageClear(_newProgress: number) {
@@ -286,15 +290,15 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     const timer = setInterval(() => {
       setPiece(prev => {
         const next: Piece = { ...prev, position: { ...prev.position, row: prev.position.row + 1 } }
-        if (!isValidPosition(board, next)) {
-          setNextPiece(currentNext => { lockAndSpawnNext(board, prev, currentNext, false); return currentNext })
+        if (!isValidPosition(boardRef.current, next)) {
+          setNextPiece(currentNext => { lockAndSpawnNext(boardRef.current, prev, currentNext, false); return currentNext })
           return prev
         }
         return next
       })
     }, interval)
     return () => clearInterval(timer)
-  }, [gameOver, isFast, speed, isPaused, board])
+  }, [gameOver, isFast, speed, isPaused])
 
   // 键盘控制
   useEffect(() => {
