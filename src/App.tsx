@@ -4,7 +4,7 @@ import { Board } from './components/Board'
 import { CollectionPage } from './components/CollectionPage'
 import { Piece } from './types'
 import { unlockAudio, playSound } from './sounds'
-import { loadCurrentTrackIndex, advanceToNextTrack, playTrack, stopTrack, loadCurrentTrackProgress } from './operaData'
+import { loadCurrentTrackIndex, advanceToNextTrack, playTrack, stopTrack, loadCurrentTrackProgress, unlockHtmlAudio } from './operaData'
 import { OPERA_COLLECTION_LIBRARY, loadColUnlocked, unlockColLyric } from './operaCollectionLibrary'
 import './App.css'
 import { saveGameProgress, loadGameProgress, clearGameProgress, GameProgressState } from './gameProgress'
@@ -243,7 +243,7 @@ function App() {
 
   return (
     <div className="app">
-      <div className="game-topbar" onPointerDown={unlockAudio}>
+      <div className="game-topbar" onPointerDown={() => { unlockAudio(); unlockHtmlAudio() }}>
         {/* 左：返回按钮 */}
         <div className="topbar-left">
           <button className="game-back-btn" onClick={() => { if (!isPaused && !gameOver && !stageClear) togglePause(); saveGameProgress(mode, getCurrentProgress()); if (mode === 'classic') setHasClassicSave(true); else setHasOperaSave(true); stopTrack(); setView('home') }}>← 返回</button>

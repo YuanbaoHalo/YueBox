@@ -233,12 +233,24 @@ export function loadCurrentTrackProgress(): {
 
 // ─── 音频播放（单例）───
 let _audio: HTMLAudioElement | null = null
+let _audioUnlocked = false
+
+// 在用户首次交互时调用，解锁 HTML Audio 自动播放
+export function unlockHtmlAudio(): void {
+  if (_audioUnlocked) return
+  // 用静音播放解锁
+  const a = new Audio()
+  a.play().then(() => { a.pause(); _audioUnlocked = true }).catch(() => {})
+}
 
 export function playTrack(url: string, onEnd?: () => void): void {
   stopTrack()
   _audio = new Audio(url)
   _audio.onended = () => { _audio = null; onEnd?.() }
-  _audio.play().catch(() => { _audio = null })
+  _audio.play().catch(() => {
+    // 自动播放被阻止时静默失败
+    _audio = null
+  })
 }
 
 export function stopTrack(): void {
