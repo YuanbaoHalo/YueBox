@@ -182,7 +182,6 @@ function App() {
           const t = setTimeout(() => { autoPlayedRef.current = true; playTrack(snapItem.audioPath) }, 800)
           return () => clearTimeout(t)
         }
-        }
       }
     } else {
       autoPlayedRef.current = false

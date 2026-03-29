@@ -184,9 +184,9 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     lockedPiece: Piece,
     currentNextPiece: Piece,
     isHardDrop = false
-    isLockingRef.current = true
-    if (isLockingRef.current) return
   ) {
+    if (isLockingRef.current) return
+    isLockingRef.current = true
     const merged = getMergedBoard(currentBoard, lockedPiece)
     const { newBoard, linesCleared } = clearFullRows(merged)
 
