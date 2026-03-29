@@ -61,6 +61,8 @@ function HomePage({ onStart, onCollection, onBadges, onClearProgress, hasClassic
       : '确定清空戏曲模式当前进度吗？\n已收集唱段和徽章不会受影响。'
     if (window.confirm(msg)) onClearProgress(mode)
   }
+  // 初始化缩放
+  const [scaleLarge, setScaleLarge] = useState(() => parseFloat(localStorage.getItem('ui-scale') || '1') > 1)
   return (
     <div className="home-page">
       <div className="home-content">
@@ -91,6 +93,16 @@ function HomePage({ onStart, onCollection, onBadges, onClearProgress, hasClassic
           <div className="home-nav-btns">
             <button className="home-btn home-btn--nav" onClick={onCollection}>♪ 唱段收藏</button>
             <button className="home-btn home-btn--nav" onClick={onBadges}>★ 我的徽章</button>
+          </div>
+          <div className="home-scale-btn-wrap">
+            <button
+              className="home-btn home-btn--scale"
+              onClick={() => {
+                const isLarge = document.documentElement.classList.toggle('large-mode')
+                localStorage.setItem('ui-scale', isLarge ? '1.3' : '1')
+                setScaleLarge(isLarge)
+              }}
+            >{scaleLarge ? '[ 标准模式 ]' : '[ 大字模式 ]'}</button>
           </div>
         </div>
         <p className="home-credit">Yuanbao Halo 出品</p>

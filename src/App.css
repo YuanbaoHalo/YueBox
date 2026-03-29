@@ -3,6 +3,7 @@
    月白底 / 柔青绿 / 暖红 / 墨
    ===================== */
 :root {
+  --ui-scale: 1.0;
   --bg:              #f2ece0;   /* 月白暖底 */
   --surface:         #faf7f2;   /* 暖白卡片，不刺眼 */
   --border:          #ddd5c0;   /* 柔和米色边框 */
@@ -1946,6 +1947,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  text-align: center;
+  align-items: center;
 }
 .home-title {
   font-size: 3rem;
@@ -1953,6 +1956,8 @@ body {
   color: var(--vermilion);
   font-weight: normal;
   line-height: 1.2;
+  padding-left: 0.6em;
+  text-align: center;
 }
 .home-subtitle {
   font-size: 1rem;
@@ -2592,23 +2597,44 @@ body {
 
 /* ---- 平板竖屏 (481px - 900px) ---- */
 @media (min-width: 481px) and (max-width: 900px) {
-  .app { padding: 10px 8px 16px; gap: 10px; }
-  .title { font-size: 1.8rem !important; }
+  .app { padding: 10px 6px 16px; gap: 10px; }
+  .title { font-size: 2rem !important; letter-spacing: 0.3em !important; }
+  .subtitle { font-size: 0.9rem !important; }
 
-  .info-panel { width: 100px !important; }
-  .tool-panel { width: 88px !important; }
+  /* 面板宽度：让棋盘400px有足够空间 */
+  .info-panel { width: 90px !important; gap: 8px !important; }
+  .tool-panel { width: 80px !important; gap: 8px !important; }
+  .app-main { gap: 4px !important; }
 
+  /* 得分卡片 */
+  .score-box, .next-box, .opera-progress-box {
+    padding: 8px 6px !important;
+  }
+  .score-label { font-size: 0.75rem !important; }
+  .score-value { font-size: 1.4rem !important; }
+
+  /* 工具按钮 */
+  .tool-btn { height: 56px !important; font-size: 0.9rem !important; border-radius: 12px !important; }
+
+  /* 两侧控制按钮 */
   .dpad-btn--side {
     width: 80px !important;
     height: 80px !important;
-    font-size: 1.2rem !important;
+    font-size: 2rem !important;
+    border-radius: 50% !important;
   }
-  .dpad-btn--rotate { height: 64px !important; }
-  .dpad-btn--dir { height: 64px !important; }
-  .dpad-btn--drop { height: 58px !important; }
 
-  .tool-btn { height: 52px !important; font-size: 0.9rem !important; }
-  .ctrl-btn { padding: 14px 24px !important; font-size: 1rem !important; }
+  /* 底部 dpad */
+  .dpad-btn--rotate { height: 70px !important; font-size: 1.1rem !important; }
+  .dpad-btn--dir { height: 70px !important; font-size: 1.4rem !important; }
+  .dpad-btn--drop { height: 64px !important; font-size: 1rem !important; }
+
+  /* overlay 按钮 */
+  .ctrl-btn { padding: 16px 28px !important; font-size: 1.1rem !important; border-radius: 12px !important; }
+
+  /* 首页按钮 */
+  .home-btn { min-height: 56px !important; font-size: 1.05rem !important; }
+  .home-btn--primary { min-height: 64px !important; font-size: 1.1rem !important; }
 }
 
 /* ---- 首页按钮触控优化 ---- */
@@ -2619,3 +2645,55 @@ body {
   }
   .home-btn--primary { min-height: 58px !important; }
 }
+
+/* ================================================
+   大字模式缩放
+================================================ */
+.app {
+  transform: scale(var(--ui-scale, 1.0));
+  transform-origin: top center;
+}
+
+/* 大字模式按钮 */
+.home-scale-btn-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+.home-btn--scale {
+  background: rgba(46, 125, 110, 0.08);
+  border: 1.5px solid var(--teal);
+  color: var(--teal);
+  border-radius: 20px;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.home-btn--scale:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* ================================================
+   大字模式 (.large-mode on html element)
+================================================ */
+html.large-mode .cell { width: 42px !important; height: 42px !important; }
+html.large-mode .title { font-size: 2.2rem !important; }
+html.large-mode .subtitle { font-size: 1rem !important; }
+html.large-mode .home-btn { min-height: 60px !important; font-size: 1.15rem !important; }
+html.large-mode .home-btn--primary { min-height: 68px !important; font-size: 1.2rem !important; }
+html.large-mode .home-btn--nav { min-height: 56px !important; font-size: 1.05rem !important; }
+html.large-mode .score-value { font-size: 1.8rem !important; }
+html.large-mode .score-label { font-size: 0.9rem !important; }
+html.large-mode .tool-btn { height: 60px !important; font-size: 1rem !important; }
+html.large-mode .dpad-btn--side { width: 80px !important; height: 80px !important; font-size: 2.2rem !important; }
+html.large-mode .dpad-btn--rotate { height: 68px !important; font-size: 1.1rem !important; }
+html.large-mode .dpad-btn--dir { height: 68px !important; font-size: 1.5rem !important; }
+html.large-mode .dpad-btn--drop { height: 60px !important; font-size: 1rem !important; }
+html.large-mode .ctrl-btn { padding: 16px 28px !important; font-size: 1.1rem !important; }
+html.large-mode .overlay-title { font-size: 1.8rem !important; }
+html.large-mode .overlay-sub { font-size: 1.1rem !important; }
+html.large-mode .info-panel { width: 100px !important; }
