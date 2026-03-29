@@ -262,7 +262,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
       return
     }
 
-    isLockingRef.current = false
+    setTimeout(() => { isLockingRef.current = false }, 50)
     if (isHardDrop) { playSound('hardDrop', mode) } else { playSound('lock', mode) }
     setBoard(newBoard)
     if (isOverlapping(newBoard, currentNextPiece)) {
