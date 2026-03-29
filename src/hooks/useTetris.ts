@@ -128,7 +128,9 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
   const [board, setBoard] = useState<BoardGrid>(() => initialState?.board ?? createEmptyBoard())
   const boardRef = useRef<BoardGrid>(initialState?.board ?? createEmptyBoard())
   const [piece, setPiece] = useState<Piece>(() => initialState?.piece ?? createNewPiece())
+  const pieceRef = useRef<Piece>(initialState?.piece ?? createNewPiece())
   const [nextPiece, setNextPiece] = useState<Piece>(() => initialState?.nextPiece ?? createNewPiece())
+  const nextPieceRef = useRef<Piece>(initialState?.nextPiece ?? createNewPiece())
   const [gameOver, setGameOver] = useState(false)
   const [score, setScore] = useState(() => initialState?.score ?? 0)
   const [bestScore, setBestScore] = useState<number>(loadBestScore)
@@ -170,6 +172,8 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
   // 触发通关：暂停游戏，顺序播放音效
   // sync boardRef whenever board changes
   useEffect(() => { boardRef.current = board }, [board])
+  useEffect(() => { pieceRef.current = piece }, [piece])
+  useEffect(() => { nextPieceRef.current = nextPiece }, [nextPiece])
 
   const stageClearRef = useRef(false)
   const isLockingRef = useRef(false)
@@ -288,14 +292,15 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     const baseInterval = speed === 'slow' ? slowMs : speed === 'fast' ? fastMs : normMs
     const interval = isFast ? 80 : baseInterval
     const timer = setInterval(() => {
-      setPiece(prev => {
-        const next: Piece = { ...prev, position: { ...prev.position, row: prev.position.row + 1 } }
-        if (!isValidPosition(boardRef.current, next)) {
-          setNextPiece(currentNext => { lockAndSpawnNext(boardRef.current, prev, currentNext, false); return currentNext })
-          return prev
+      const cur = pieceRef.current
+      const next: Piece = { ...cur, position: { ...cur.position, row: cur.position.row + 1 } }
+      if (!isValidPosition(boardRef.current, next)) {
+        if (!isLockingRef.current) {
+          lockAndSpawnNext(boardRef.current, cur, nextPieceRef.current, false)
         }
-        return next
-      })
+      } else {
+        setPiece(next)
+      }
     }, interval)
     return () => clearInterval(timer)
   }, [gameOver, isFast, speed, isPaused])
