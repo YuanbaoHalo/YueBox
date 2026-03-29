@@ -168,27 +168,24 @@ function App() {
 
   // 通关结果页：每次通关后自动播放完整音频
   // stageClear 变 true 时同步记录当前唱段索引快照
-  useEffect(() => { if (stageClear) { snapIdxRef.current = loadCurrentTrackIndex() } }, [stageClear])
-
   useEffect(() => {
     if (stageClear) {
-      // 解锁收藏库当前唱段的一句唱词
-      // 用快照索引，防止 advanceToNextTrack 后索引已变
+      // 合并快照 + 解锁 + 播放，确保顺序正确
+      snapIdxRef.current = loadCurrentTrackIndex()
       const snapIdx = snapIdxRef.current
       const snapItem = OPERA_COLLECTION_LIBRARY[Math.min(snapIdx, OPERA_COLLECTION_LIBRARY.length - 1)]
       if (snapItem) {
         const unlockedCount = unlockColLyric(snapItem.id)
         setStagedColItem(snapItem)
         setStagedColUnlocked(loadColUnlocked(snapItem.id))
-        // 播放对应音频
-        // 消1行触发fragmentUnlocked时不播音频，只有正式通关页才播
-        // 只有集剗4个碎片（本折完成）才播音频
         if (snapItem.audioPath && !autoPlayedRef.current && unlockedCount >= 4) {
           autoPlayedRef.current = true
           const t = setTimeout(() => playTrack(snapItem.audioPath), 1000)
           return () => clearTimeout(t)
         }
       }
+    } else {
+      autoPlayedRef.current = false
     }
   }, [stageClear])
 
@@ -250,7 +247,7 @@ function App() {
       <div className="game-topbar" onPointerDown={unlockAudio}>
         {/* 左：返回按钮 */}
         <div className="topbar-left">
-          <button className="game-back-btn" onClick={() => { saveGameProgress(mode, getCurrentProgress()); if (mode === 'classic') setHasClassicSave(true); else setHasOperaSave(true); stopTrack(); setView('home') }}>← 返回</button>
+          <button className="game-back-btn" onClick={() => { if (!isPaused && !gameOver && !stageClear) togglePause(); saveGameProgress(mode, getCurrentProgress()); if (mode === 'classic') setHasClassicSave(true); else setHasOperaSave(true); stopTrack(); setView('home') }}>← 返回</button>
         </div>
 
         {/* 中：唱段主信息条 */}
@@ -451,6 +448,16 @@ function App() {
                 const w = window as Window & { __fallTimer?: ReturnType<typeof setTimeout> }
                 window.clearTimeout(w.__fallTimer)
                 fireKeyUp('ArrowDown')
+                setFast(false)
+              }}
+              onPointerLeave={() => {
+                const w = window as Window & { __fallTimer?: ReturnType<typeof setTimeout> }
+                window.clearTimeout(w.__fallTimer)
+                setFast(false)
+              }}
+              onPointerCancel={() => {
+                const w = window as Window & { __fallTimer?: ReturnType<typeof setTimeout> }
+                window.clearTimeout(w.__fallTimer)
                 setFast(false)
               }}
               title="点击下移一格，长按加速"
