@@ -2534,7 +2534,6 @@ body {
 /* 全局：禁止长按菜单、触控高亮 */
 * {
   -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
 }
 
 /* ---- 手机竖屏 (≤ 480px) ---- */
