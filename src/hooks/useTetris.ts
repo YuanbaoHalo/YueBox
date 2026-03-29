@@ -168,6 +168,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
   // 触发通关：暂停游戏，解锁片段，顺序播放音效
   // 触发通关：暂停游戏，顺序播放音效
   const stageClearRef = useRef(false)
+  const isLockingRef = useRef(false)
   function triggerStageClear(_newProgress: number) {
     if (stageClearRef.current) return  // 防止重复触发
     stageClearRef.current = true
@@ -183,6 +184,8 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     lockedPiece: Piece,
     currentNextPiece: Piece,
     isHardDrop = false
+    isLockingRef.current = true
+    if (isLockingRef.current) return
   ) {
     const merged = getMergedBoard(currentBoard, lockedPiece)
     const { newBoard, linesCleared } = clearFullRows(merged)
@@ -245,6 +248,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
 
       setTimeout(() => {
         setClearingRows([])
+        isLockingRef.current = false
         setBoard(newBoard)
         if (!isOverlapping(newBoard, currentNextPiece)) {
           if (isNewRecord) setTimeout(() => playSound('newRecord', mode), 300)
@@ -258,6 +262,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
       return
     }
 
+    isLockingRef.current = false
     if (isHardDrop) { playSound('hardDrop', mode) } else { playSound('lock', mode) }
     setBoard(newBoard)
     if (isOverlapping(newBoard, currentNextPiece)) {
@@ -357,6 +362,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     setTestFragCount(0)
     setFragmentUnlocked(false)
     stageClearRef.current = false
+    isLockingRef.current = false
     if (fullReset) {
       // 完全归零：清空进度时调用
       setOperaProgress(0)

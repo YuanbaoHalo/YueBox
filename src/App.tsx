@@ -179,9 +179,9 @@ function App() {
         setStagedColItem(snapItem)
         setStagedColUnlocked(loadColUnlocked(snapItem.id))
         if (snapItem.audioPath && !autoPlayedRef.current && unlockedCount >= 4) {
-          autoPlayedRef.current = true
-          const t = setTimeout(() => playTrack(snapItem.audioPath), 1000)
+          const t = setTimeout(() => { autoPlayedRef.current = true; playTrack(snapItem.audioPath) }, 800)
           return () => clearTimeout(t)
+        }
         }
       }
     } else {
