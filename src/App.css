@@ -2475,23 +2475,28 @@ body {
 }
 
 
-/* === 通关页按鈕布局优化 === */
+/* === 通关页按钮布局优化 === */
 .stage-clear-btns {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   width: 100%;
 }
 .stage-clear-btns-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
   width: 100%;
 }
 .stage-clear-btns-row .ctrl-btn {
   flex: 1;
-  max-width: 140px;
+  padding: 10px 8px !important;
+  font-size: 0.88rem !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0;
 }
 .stage-clear-back-btn {
   width: 100%;

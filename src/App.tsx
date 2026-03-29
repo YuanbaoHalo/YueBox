@@ -170,7 +170,6 @@ function App() {
   // stageClear 变 true 时同步记录当前唱段索引快照
   useEffect(() => {
     if (stageClear) {
-      // 合并快照 + 解锁 + 播放，确保顺序正确
       snapIdxRef.current = loadCurrentTrackIndex()
       const snapIdx = snapIdxRef.current
       const snapItem = OPERA_COLLECTION_LIBRARY[Math.min(snapIdx, OPERA_COLLECTION_LIBRARY.length - 1)]
@@ -178,16 +177,17 @@ function App() {
         const unlockedCount = unlockColLyric(snapItem.id)
         setStagedColItem(snapItem)
         setStagedColUnlocked(loadColUnlocked(snapItem.id))
-        if (snapItem.audioPath && !autoPlayedRef.current && unlockedCount >= 4) {
-          const t = setTimeout(() => { autoPlayedRef.current = true; playTrack(snapItem.audioPath) }, 800)
-          return () => clearTimeout(t)
+        // 已集李4个碎片才播放音频，用 stopTrack 防重复，不依赖 autoPlayedRef
+        if (snapItem.audioPath && unlockedCount >= 4) {
+          stopTrack()
+          const t = setTimeout(() => playTrack(snapItem.audioPath), 800)
+          return () => { clearTimeout(t); stopTrack() }
         }
       }
-    } else {
-      autoPlayedRef.current = false
     }
-  }, [stageClear])
 
+
+  }, [stageClear])
   // 离开结果页时停止音频
   function handleRestart() {
     stopTrack()
@@ -378,13 +378,15 @@ function App() {
                       <span className="fragment-progress-num">4 / 4</span>
                     </p>
                     <div className="stage-clear-btns">
-                      <button className="ctrl-btn ctrl-btn--primary" onClick={() => { advanceToNextTrack(OPERA_COLLECTION_LIBRARY.length); handleRestart() }}>进入下一折</button>
                       <div className="stage-clear-btns-row">
+                        <button className="ctrl-btn ctrl-btn--primary" onClick={() => { advanceToNextTrack(OPERA_COLLECTION_LIBRARY.length); handleRestart() }}>进入下一折</button>
                         <button className="ctrl-btn ctrl-btn--secondary" onClick={() => {
-                          // 重置当前唱段的解锁记录，从第1节重新开始
                           if (stagedColItem) { localStorage.removeItem('yuebox-col-' + stagedColItem.id) }
                           handleRestart()
                         }}>本折重玩</button>
+                      </div>
+                      <div className="stage-clear-btns-row">
+                        <button className="ctrl-btn ctrl-btn--play" onClick={() => { if (stagedColItem?.audioPath) playTrack(stagedColItem.audioPath) }}>播放唱段</button>
                         <button className="ctrl-btn ctrl-btn--stop" onClick={() => stopTrack()}>停止播放</button>
                       </div>
                     </div>

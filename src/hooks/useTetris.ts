@@ -152,7 +152,7 @@ export function useTetris(mode: GameMode = 'classic', initialState?: GameProgres
     setPiece(prev => {
       const next: Piece = { ...prev, position: { ...prev.position, row: prev.position.row + 1 } }
       if (!isValidPosition(board, next)) {
-        setNextPiece(currentNext => { lockAndSpawnNext(board, prev, currentNext, false); return currentNext })
+        if (!isFast && !isLockingRef.current) { setNextPiece(currentNext => { lockAndSpawnNext(board, prev, currentNext, false); return currentNext }) }
         return prev
       }
       return next

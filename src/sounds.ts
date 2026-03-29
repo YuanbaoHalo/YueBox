@@ -234,7 +234,17 @@ export type SoundEvent =
 // ═══════════════════════════════════════════
 // 统一入口：playSound(event, mode)
 // ═══════════════════════════════════════════
+// 落地音效节流：300ms 内同类音效只播一次
+const _lastPlayed: Partial<Record<SoundEvent, number>> = {}
+const THROTTLE_MS: Partial<Record<SoundEvent, number>> = { lock: 300, hardDrop: 300 }
+
 export function playSound(event: SoundEvent, mode: GameMode) {
+  const throttleMs = THROTTLE_MS[event]
+  if (throttleMs) {
+    const now = Date.now()
+    if (now - (_lastPlayed[event] ?? 0) < throttleMs) return
+    _lastPlayed[event] = now
+  }
   const c = C()
   if (!c) return
   try {
